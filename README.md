@@ -39,3 +39,4 @@ To deploy the project, do....
 Devina Kumar, Virginia Cook, Jonathan Gonzalez, Henry Wilson, Matthew Goldstein
 
 ## Acknowledgments
+Starter code taken from React Native Workshop in class
