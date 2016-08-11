@@ -8,7 +8,7 @@
 
 ## Wireframes
 
-![](./images/site_map.png)
+![](./images/wireframes.png)
 
 ## Architecture
 
