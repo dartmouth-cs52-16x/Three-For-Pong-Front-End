@@ -14,11 +14,12 @@ TODO: short project description, some sample screenshots or mockups
 
 ### Front End
 
-Our front end design will be built using React+Redux
+Our front end design will be built using React Native.
 
 ### Back End
 
-Our back end design will focus on using Firebase. 
+Our back end design will use MongoDB hosted on Heroku.
+In addition, we will use Nexmo's SMS API (https://www.nexmo.com/products/sms/) to send an SMS to students once they have been matched. We will use Axios to interact with Nexmo's API in addition to our Heroku database.
 
 TODO:  descriptions of code organization and tools and libraries used
 
