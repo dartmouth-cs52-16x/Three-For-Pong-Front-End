@@ -4,17 +4,11 @@
 
 ### Site Map
 
-![](./site_map.png)
+![](./images/site_map.png)
 
 ## Wireframes
 
-### Login
-
-### Register
-
-### Homepage
-
-### Edit Profile
+![](./images/site_map.png)
 
 ## Architecture
 
