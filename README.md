@@ -6,11 +6,15 @@
 
 ![](./site_map.png)
 
-![](./images/home-page-find-match.png)
+## Wireframes
 
-![](./images/home-page-finding-match.png)
+### Login
 
-TODO: short project description, some sample screenshots or mockups
+### Register
+
+### Homepage
+
+### Edit Profile
 
 ## Architecture
 
