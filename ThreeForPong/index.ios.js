@@ -18,11 +18,12 @@ import {
 
 class ThreeForPong extends Component {
   _onPressButtonGet() {
-    fetch('https://threeforpong.herokuapp.com/api/listings/')
+    fetch('https://threeforpong.herokuapp.com/api/locations/')
     .then((response) => response.json())
     .then((responseData) => {
+      console.log(responseData);
       AlertIOS.alert(
-        "Response " + responseData.listings[0].location_id
+        "Response " + responseData[0].location_name
       )
     })
     .done();
