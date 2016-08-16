@@ -26,12 +26,23 @@ TODO:  descriptions of code organization and tools and libraries used
 
 ## Setup
 
-TODO: how to get the project dev environment up and running, npm install etc
+To get the project running, run these commands:
+
+```
+brew install node
+brew install watchman
+npm install -g react-native-cli
+```
+In addition, X-Code and its command-line tools must be installed.
 
 ## Deployment
 
-To deploy the project, do....
+To deploy the project, first go into the project folder (ThreeForPong in this case), and then run
+```
+react-native run-ios
+```
 
+This will start an iPhone simulator, which can be updated with a simple cmd+R when you update a feature.
 
 
 ## Authors
