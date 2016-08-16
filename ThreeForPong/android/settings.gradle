@@ -1,0 +1,3 @@
+rootProject.name = 'ThreeForPong'
+
+include ':app'
