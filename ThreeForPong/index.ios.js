@@ -22,7 +22,7 @@ class ThreeForPong extends Component {
     .then((response) => response.json())
     .then((responseData) => {
       AlertIOS.alert(
-        "Response " + responseData[0].body.location_id
+        "Response " + responseData.listings[0].location_id
       )
     })
     .done();
