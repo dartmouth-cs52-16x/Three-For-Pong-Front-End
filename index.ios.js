@@ -15,14 +15,15 @@ import {
   AlertIOS,
 } from 'react-native';
 
+var {serverURL} = require('./env');
 
 class ThreeForPong extends Component {
   _onPressButtonGet() {
-    fetch('https://threeforpong.herokuapp.com/api/listings/')
+     fetch(`${serverURL}`)
     .then((response) => response.json())
     .then((responseData) => {
       AlertIOS.alert(
-        "Response " + responseData.listings[0].location_id
+        "Response " + responseData[0].location_name
       )
     })
     .done();
