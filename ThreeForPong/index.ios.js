@@ -13,23 +13,61 @@ import {
   Navigator,
   TouchableHighlight,
   AlertIOS,
+  ListView,
 } from 'react-native';
 
 
 class ThreeForPong extends Component {
-  _onPressButtonGet() {
-    fetch('https://threeforpong.herokuapp.com/api/locations/')
+  constructor(props){
+    super(props);
+    this.state = {
+      dataSource: new ListView.DataSource({
+          rowHasChanged: (row1, row2) => row1 !== row2,
+        })
+    };
+  }
+  componentDidMount(){
+    this._fetchListings();
+  }
+  _fetchListings() {
+    fetch('https://threeforpong.herokuapp.com/api/listings/')
     .then((response) => response.json())
     .then((responseData) => {
-      console.log(responseData);
-      AlertIOS.alert(
-        "Response " + responseData[0].location_name
-      )
+      var data = [];
+      for(var i = 0; i < responseData.length; i++) {
+        data.push(responseData[i]);
+      }
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(data)
+      })
+      console.log('new one');
+      console.log(this.state.dataSource);
+    })
+  }
+  _onPressButtonGet() {
+    fetch('https://threeforpong.herokuapp.com/api/listings/')
+    .then((response) => response.json())
+    .then((responseData) => {
+       AlertIOS.alert(
+         "hi " + `${responseData.length}`
+       )
     })
     .done();
   }
+  renderRow(data) {
+    return (
+      <View style={styles.row}>
+        <Text>
+        Need: {data.listing_id}{'\n'}
+        Location: at {data.location_id}{'\n'}
+        Time: {data.start_time}
+        </Text>
+      </View>
+    )
+  }
   render() {
     return (
+
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to Three For Pong!
@@ -40,7 +78,11 @@ class ThreeForPong extends Component {
         <TouchableHighlight onPress={this._onPressButtonGet} style={styles.button}>
           <Text>GET</Text>
         </TouchableHighlight>
-      </View>
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderRow}
+      />
+    </View>
     );
   }
 }
@@ -68,7 +110,14 @@ const styles = StyleSheet.create({
         padding: 10,
         marginRight: 5,
         marginLeft: 5,
-    }
+        marginBottom: 5,
+    },
+  row: {
+    backgroundColor: 'white',
+    color: 'black',
+    borderColor: 'black',
+    borderWidth: 1,
+  }
 });
 
 AppRegistry.registerComponent('ThreeForPong', () => ThreeForPong);
