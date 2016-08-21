@@ -1,28 +1,63 @@
+'use strict';
+
 import React, { Component } from 'react';
 import { AppRegistry, View, Text, StyleSheet, NavigatorIOS, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
 
-let Form = t.form.Form;
+var Form = t.form.Form;
 
-let LoginForm = t.struct({
+var LoginForm = t.struct({
 
   email: t.String,  // an optional string
   password: t.String              // a required number
 
 });
 
-let options = {}; // optional rendering options (see documentation)
-
+var options = {
+  auto: 'placeholders',
+  fields: {
+    password: {
+      password: true,
+      secureTextEntry: true,
+    },
+    email: {
+      keyboardType: 'email-address',
+      autoCorrect: false,
+      autoCapitalize: false,
+    },
+  },
+}
 
 class Login extends Component {
 
-  _onPress() {
-   // call getValue() to get the values of the form
-   var value = this.refs.form.getValue();
-   if (value) { // if validation fails, value will be null
-     console.log(value); // value here is an instance of Person
-   }
+  constructor(props){
+   super(props);
+   this._onPress = this._onPress.bind(this);
  }
+
+  _onPress() {
+    console.log("Login was pressed");
+    var value = this.refs.form.getValue();
+        console.log(value);
+
+  /*
+   fetch('https://threeforpong.herokuapp.com/api/signin/', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: `${user_email}`,
+        password: `${user_password}`
+      })
+    })
+    .then((response) => response.json())
+    .then((responseData) => {
+
+       console.log(responseData.token);
+       console.log("Devina");
+       console.log(responseData.user_id);
+    })
+    .done();
+    */
+  }
 
   render() {
     return (
@@ -33,6 +68,7 @@ class Login extends Component {
           type={LoginForm}
           options={options}
           style={styles.title}
+
         />
         <TouchableHighlight style={styles.button} onPress={this._onPress} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Login</Text>
