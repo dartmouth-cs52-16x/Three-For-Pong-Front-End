@@ -18,12 +18,11 @@ var options = {
   fields: {
     password: {
       password: true,
-      secureTextEntry: true,
+      secureTextEntry: true
     },
     email: {
       keyboardType: 'email-address',
       autoCorrect: false,
-      autoCapitalize: false,
     },
   },
 }
@@ -36,13 +35,16 @@ class Login extends Component {
  }
 
   _onPress() {
-    console.log("Login was pressed");
     var value = this.refs.form.getValue();
-        console.log(value);
+    var user_email = value.email;
+    var user_password = value.password;
+    console.log(value);
 
-  /*
    fetch('https://threeforpong.herokuapp.com/api/signin/', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         email: `${user_email}`,
         password: `${user_password}`
@@ -56,7 +58,6 @@ class Login extends Component {
        console.log(responseData.user_id);
     })
     .done();
-    */
   }
 
   render() {
