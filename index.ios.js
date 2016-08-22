@@ -126,8 +126,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#88C425',
     paddingTop: 25,
     paddingBottom: 25,
-    // marginRight: 5,
-    // marginLeft: 5,
     marginTop: 110,
     width: 400,
   },
@@ -137,9 +135,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#BEF202',
     paddingTop: 25,
     paddingBottom: 25,
-    // marginRight: 5,
-    // marginLeft: 5,
-    // marginTop: 20,
     width: 400,
   },
   button: {

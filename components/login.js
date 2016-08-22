@@ -93,6 +93,7 @@ class Login extends Component {
     marginBottom: -200,
     marginTop: 200,
     color: 'white',
+    backgroundColor: 'white',
   },
   buttonText: {
     fontSize: 24,
@@ -107,8 +108,8 @@ class Login extends Component {
     paddingBottom: 25,
     width: 400,
     marginLeft: -40,
-    marginTop: 180,
-    marginBottom: -205,
+    marginTop: 200,
+    marginBottom: -240,
   }
   });
 
