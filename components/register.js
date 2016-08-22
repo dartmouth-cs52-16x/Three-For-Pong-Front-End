@@ -36,14 +36,14 @@ class Register extends Component {
   constructor(props){
    super(props);
    this.state = {
-      options: options,
-      value: null
+      value: {},
+      type: this.getType(value)
    };
  }
 
-  onChange() {
+  getType(value) {
 
-    if (Person.canHost) {
+    if (value.canHost) {
       fetch('https://threeforpong.herokuapp.com/api/locations/')
       .then((response) => response.json())
       .then((responseData) => {
@@ -59,7 +59,9 @@ class Register extends Component {
       return t.struct({
         LocationtoHost: Locations,
       });
-    };
+    } else {
+      return Persons;
+    }
   }
 
   getInitialValue() {
