@@ -46,7 +46,7 @@ class ThreeForPong extends Component {
           title: '',
         }}
         style={{flex: 1}}
-      navigationBarHidden={false} />
+      navigationBarHidden={true} />
     );
   }
 }
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   Loginbutton: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#88C425',
+    backgroundColor: '#519548',
     paddingTop: 25,
     paddingBottom: 25,
     marginTop: 110,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   Registerbutton: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#BEF202',
+    backgroundColor: '#88C425',
     paddingTop: 25,
     paddingBottom: 25,
     width: 400,
