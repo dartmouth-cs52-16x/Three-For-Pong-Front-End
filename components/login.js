@@ -23,6 +23,7 @@ var options = {
     email: {
       keyboardType: 'email-address',
       autoCorrect: false,
+      autoCapitalize: 'none',
     },
   },
 }
@@ -53,9 +54,7 @@ class Login extends Component {
     .then((response) => response.json())
     .then((responseData) => {
 
-       console.log(responseData.token);
-       console.log("Devina");
-       console.log(responseData.user_id);
+       console.log(responseData);
     })
     .done();
   }
