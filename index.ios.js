@@ -13,6 +13,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Image,
   View,
   NavigatorIOS,
   TouchableHighlight,
@@ -42,10 +43,10 @@ class ThreeForPong extends Component {
       <NavigatorIOS
         initialRoute={{
           component: Startup,
-          title: 'Welcome',
+          title: '',
         }}
         style={{flex: 1}}
-      />
+      navigationBarHidden={false} />
     );
   }
 }
@@ -63,7 +64,7 @@ class Startup extends Component {
        component: Login
      });
     }
-    
+
   _onRegisterForward() {
     this.props.navigator.push({
      title: 'Register',
@@ -77,12 +78,14 @@ class Startup extends Component {
     return (
       <View style={styles.container}>
 
+      <Image source={require('./3forponglogo.png')} style={styles.logo} />
+
        <TouchableHighlight onPress={this._onLoginForward} style={styles.Loginbutton}>
-          <Text>LOGIN</Text>
+          <Text style={styles.buttonText}>LOGIN</Text>
        </TouchableHighlight>
 
        <TouchableHighlight onPress={this._onRegisterForward} style={styles.Registerbutton}>
-          <Text>REGISTER</Text>
+          <Text style={styles.buttonText}>REGISTER</Text>
        </TouchableHighlight>
       </View>
     );
@@ -94,7 +97,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: 'darkgreen',
+    backgroundColor: '#1B676B',
+  },
+  logo: {
+    maxWidth: 300,
+    maxHeight: 300,
+    marginTop: 315,
   },
   welcome: {
     justifyContent: 'center',
@@ -115,19 +123,24 @@ const styles = StyleSheet.create({
   Loginbutton: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#eeeeee',
-    padding: 10,
-    marginRight: 5,
-    marginLeft: 5,
+    backgroundColor: '#88C425',
+    paddingTop: 25,
+    paddingBottom: 25,
+    // marginRight: 5,
+    // marginLeft: 5,
+    marginTop: 110,
+    width: 400,
   },
   Registerbutton: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#eeeeee',
-    paddingTop:5,
-    padding: 10,
-    marginRight: 5,
-    marginLeft: 5,
+    backgroundColor: '#BEF202',
+    paddingTop: 25,
+    paddingBottom: 25,
+    // marginRight: 5,
+    // marginLeft: 5,
+    // marginTop: 20,
+    width: 400,
   },
   button: {
     justifyContent: 'center',
@@ -136,6 +149,10 @@ const styles = StyleSheet.create({
     padding: 10,
     marginRight: 5,
     marginLeft: 5,
+  },
+  buttonText: {
+    fontSize: 24,
+    color: '#FFFFFF',
   },
 });
 
