@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, StyleSheet, NavigatorIOS, TouchableHighlight } from 'react-native';
+import { AppRegistry, View, Text, StyleSheet, Image, NavigatorIOS, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
 
 var Form = t.form.Form;
@@ -18,11 +18,22 @@ var options = {
   fields: {
     password: {
       password: true,
-      secureTextEntry: true
+      secureTextEntry: true,
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'go',
     },
     email: {
       keyboardType: 'email-address',
       autoCorrect: false,
+      autoCapitalize: 'none',
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'next',
       autoCapitalize: 'none',
     },
   },
@@ -62,6 +73,9 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
+
+      <Image source={require('../3forponglogo.png')} style={styles.logo} />
+
         {/* display */}
         <Form
           ref="form"
@@ -71,7 +85,7 @@ class Login extends Component {
 
         />
         <TouchableHighlight style={styles.button} onPress={this._onPress} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableHighlight>
       </View>
     );
@@ -86,12 +100,20 @@ class Login extends Component {
     padding: 20,
     backgroundColor: '#1B676B',
   },
+  logo: {
+    maxWidth: 150,
+    maxHeight: 150,
+    marginTop: 300,
+    marginBottom: 60,
+    alignSelf: 'center',
+  },
   title: {
     fontSize: 30,
     alignSelf: 'center',
     marginBottom: -200,
     marginTop: 200,
     color: 'white',
+    backgroundColor: 'white',
   },
   buttonText: {
     fontSize: 24,
@@ -106,8 +128,8 @@ class Login extends Component {
     paddingBottom: 25,
     width: 400,
     marginLeft: -40,
-    marginTop: 180,
-    marginBottom: -205,
+    marginTop: 150,
+    marginBottom: -140,
   }
   });
 
