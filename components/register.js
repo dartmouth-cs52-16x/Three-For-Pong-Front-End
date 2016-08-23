@@ -7,12 +7,15 @@ import {
   NavigatorIOS,
   TouchableHighlight,
   AlertIOS,
+  Dimensions,
 } from 'react-native';
 import t from 'tcomb-form-native';
+import _ from 'lodash';
+
 
 let Form = t.form.Form;
 
-
+const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 // here we are: define your domain model
 let Person = t.struct({
@@ -25,6 +28,13 @@ let Person = t.struct({
   canHost: t.Boolean // Boolean
 
 });
+
+// overriding the text color
+stylesheet.textbox.normal.color = '#FFFFFF';
+stylesheet.textbox.normal.borderRadius = 0;
+stylesheet.textbox.normal.borderLeftColor = '#1B676B';
+stylesheet.textbox.normal.borderRightColor = '#1B676B';
+stylesheet.textbox.normal.borderTopColor = '#1B676B';
 
 let options = {
   fields: {

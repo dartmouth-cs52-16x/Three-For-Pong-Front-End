@@ -1,8 +1,12 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, StyleSheet, Image, NavigatorIOS, TouchableHighlight } from 'react-native';
+import { Dimensions, AppRegistry, View, Text, StyleSheet, Image, NavigatorIOS, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
+import _ from 'lodash';
+
+// clone the default stylesheet
+const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 var Form = t.form.Form;
 
@@ -12,6 +16,13 @@ var LoginForm = t.struct({
   password: t.String              // a required number
 
 });
+
+// overriding the text color
+stylesheet.textbox.normal.color = '#FFFFFF';
+stylesheet.textbox.normal.borderRadius = 0;
+stylesheet.textbox.normal.borderLeftColor = '#1B676B';
+stylesheet.textbox.normal.borderRightColor = '#1B676B';
+stylesheet.textbox.normal.borderTopColor = '#1B676B';
 
 var options = {
   auto: 'placeholders',
@@ -24,6 +35,7 @@ var options = {
       keyboardAppearance: 'dark',
       selectionColor: '#88C425',
       returnKeyType: 'go',
+      stylesheet: stylesheet,
     },
     email: {
       keyboardType: 'email-address',
@@ -35,6 +47,7 @@ var options = {
       selectionColor: '#88C425',
       returnKeyType: 'next',
       autoCapitalize: 'none',
+      stylesheet: stylesheet,
     },
   },
 }
@@ -126,8 +139,8 @@ class Login extends Component {
     backgroundColor: '#88C425',
     paddingTop: 25,
     paddingBottom: 25,
-    width: 400,
-    marginLeft: -40,
+    width: Dimensions.get('window').width,
+    marginLeft: -20,
     marginTop: 150,
     marginBottom: -140,
   }
