@@ -15,10 +15,11 @@ import _ from 'lodash';
 
 let Form = t.form.Form;
 
+// here we are: define your domain model
+
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
-// here we are: define your domain model
-let Person = t.struct({
+var Person = t.struct({
   FirstName: t.String,
   LastName: t.String,            // a required string
   phoneNumber: t.String,
@@ -29,6 +30,7 @@ let Person = t.struct({
 
 });
 
+<<<<<<< HEAD
 // overriding the text color
 stylesheet.textbox.normal.color = '#FFFFFF';
 stylesheet.textbox.normal.borderRadius = 0;
@@ -42,43 +44,101 @@ let options = {
   }
 }; // optional rendering options (see documentation)
 
+var options = {};
+// optional rendering options (see documentation)
+
+
 class Register extends Component {
   constructor(props){
    super(props);
    this.state = {
+      options: options,
+      dict: {},
       value: {},
-      type: this.getType(value)
-   };
+      type: Person
+    };
+
+    this.onChange = this.onChange.bind(this);
+    //this.createForm = this.createForm.bind(this);
  }
 
-  getType(value) {
+ componentWillMount() {
+   this.buildLocations();
+ }
 
-    if (value.canHost) {
-      fetch('https://threeforpong.herokuapp.com/api/locations/')
-      .then((response) => response.json())
-      .then((responseData) => {
-        var data = [];
-        for(var i = 0; i < responseData.length; i++) {
-          data.push(responseData[i]);
-        }
-      })
+ onChange(value) {
 
-      let Locations = t.enums ({
-        data : data
+   console.log(value);
+   if (value.canHost) {
+     var location_dict = this.state.dict;
+     var LocationList = t.enums(location_dict, 'LocationList');
+
+     var temp = t.struct({
+       FirstName: t.String,
+       LastName: t.String,            // a required string
+       phoneNumber: t.String,
+       email: t.String,  // an optional string
+       password: t.String,               // a required number
+       confirmPassword: t.String,        // check if password is correct
+       canHost: t.Boolean, // Boolean
+       LocationToHost: LocationList
+
+     });
+
+     this.setState({type: temp, value: value});
+   } else {
+      var temp = t.struct({
+        FirstName: t.String,
+        LastName: t.String,            // a required string
+        phoneNumber: t.String,
+        email: t.String,  // an optional string
+        password: t.String,               // a required number
+        confirmPassword: t.String,        // check if password is correct
+        canHost: t.Boolean // Boolean
       });
-      return t.struct({
-        LocationtoHost: Locations,
-      });
-    } else {
-      return Persons;
-    }
-  }
 
-  getInitialValue() {
-     const value = {};
-     return { value, type: this.getType(value) };
+      this.setState({type: temp, value: value});
    }
 
+   }
+
+  buildLocations() {
+    var dict = {};
+    fetch('https://threeforpong.herokuapp.com/api/locations/', {
+      method: 'GET'
+    })
+
+    .then((response) => response.json())
+    .then((responseData) => {
+
+      for(var i = 0; i < responseData.length; i++) {
+        var loc_temp = responseData[i].location_name.replace(/"/g, "'")
+        dict[responseData[i].location_id] = responseData[i].location_name
+      }
+      this.getType(dict);
+      //const LocationList = t.enums.of([data_string], 'LocationList');
+
+    })
+
+  }
+
+  getType(location_dict){
+    var LocationList = t.enums(location_dict, 'LocationList');
+
+    var foo = t.struct({
+      FirstName: t.String,
+      LastName: t.String,            // a required string
+      phoneNumber: t.String,
+      email: t.String,  // an optional string
+      password: t.String,               // a required number
+      confirmPassword: t.String,        // check if password is correct
+      canHost: t.Boolean // Boolean
+
+    });
+    this.setState({type:foo, dict:location_dict});
+
+
+  }
   onPress() {
     var value = this.refs.form.getValue();
     if (value) {
@@ -92,8 +152,9 @@ class Register extends Component {
          {/* display */}
          <Form
            ref="form"
-           type={Person}
+           type={this.state.type}
            options={this.state.options}
+           value={this.state.value}
            style={styles.title}
            onChange={this.onChange}
          />
@@ -112,32 +173,28 @@ class Register extends Component {
      justifyContent: 'center',
      marginTop: 50,
      padding: 20,
-     backgroundColor: '#1B676B',
-     alignItems: 'stretch',
+     backgroundColor: 'darkgreen',
    },
    title: {
-    //  fontSize: 30,
-    //  alignSelf: 'center',
-    //  marginBottom: 30,
-    //  color: 'black',
-    //  backgroundColor: 'white',
-   },
-   returnButton: {
-     backgroundColor: 'black',
+     fontSize: 30,
+     alignSelf: 'center',
+     marginBottom: 30,
+     color: 'white',
    },
    buttonText: {
-     fontSize: 24,
+     fontSize: 18,
      color: 'white',
      alignSelf: 'center'
    },
    button: {
-     justifyContent: 'center',
-     alignItems: 'center',
-     backgroundColor: '#88C425',
-     paddingTop: 25,
-     paddingBottom: 25,
-     width: 400,
-     marginLeft: -40,
+     height: 36,
+     backgroundColor: '#48BBEC',
+     borderColor: '#48BBEC',
+     borderWidth: 1,
+     borderRadius: 8,
+     marginBottom: 10,
+     alignSelf: 'stretch',
+     justifyContent: 'center'
    }
  });
 
