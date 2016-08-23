@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  ScrollView,
   Text,
   View,
   NavigatorIOS,
@@ -30,7 +31,7 @@ var Person = t.struct({
 
 });
 
-<<<<<<< HEAD
+
 // overriding the text color
 stylesheet.textbox.normal.color = '#FFFFFF';
 stylesheet.textbox.normal.borderRadius = 0;
@@ -44,7 +45,6 @@ let options = {
   }
 }; // optional rendering options (see documentation)
 
-var options = {};
 // optional rendering options (see documentation)
 
 
@@ -149,6 +149,7 @@ class Register extends Component {
    render() {
      return (
        <View style={styles.container}>
+        <ScrollView>
          {/* display */}
          <Form
            ref="form"
@@ -162,6 +163,7 @@ class Register extends Component {
          <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
            <Text style={styles.buttonText}>REGISTER</Text>
          </TouchableHighlight>
+         </ScrollView>
        </View>
      );
    }
