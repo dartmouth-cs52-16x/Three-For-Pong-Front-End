@@ -3,7 +3,9 @@ import {
   AppRegistry,
   StyleSheet,
   ScrollView,
+  Image,
   Text,
+  ScrollView,
   View,
   NavigatorIOS,
   TouchableHighlight,
@@ -31,7 +33,6 @@ var Person = t.struct({
 
 });
 
-
 // overriding the text color
 stylesheet.textbox.normal.color = '#FFFFFF';
 stylesheet.textbox.normal.borderRadius = 0;
@@ -40,12 +41,81 @@ stylesheet.textbox.normal.borderRightColor = '#1B676B';
 stylesheet.textbox.normal.borderTopColor = '#1B676B';
 
 let options = {
+  auto: 'placeholders',
   fields: {
+    FirstName: {
+      keyboardType: 'email-address',
+      autoCorrect: false,
+      autoCapitalize: 'none',
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'next',
+      autoCapitalize: 'none',
+      stylesheet: stylesheet,
+    },
+    LastName: {
+      keyboardType: 'email-address',
+      autoCorrect: false,
+      autoCapitalize: 'none',
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'next',
+      autoCapitalize: 'none',
+      stylesheet: stylesheet,
+    },
+    phoneNumber: {
+      keyboardType: 'email-address',
+      autoCorrect: false,
+      autoCapitalize: 'none',
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'next',
+      autoCapitalize: 'none',
+      stylesheet: stylesheet,
+    },
+    email: {
+      keyboardType: 'email-address',
+      autoCorrect: false,
+      autoCapitalize: 'none',
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'next',
+      autoCapitalize: 'none',
+      stylesheet: stylesheet,
+    },
+    password: {
+      password: true,
+      secureTextEntry: true,
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'go',
+      stylesheet: stylesheet,
+    },
+    confirmPassword: {
+      password: true,
+      secureTextEntry: true,
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'go',
+      stylesheet: stylesheet,
+    },
     Locations: {}
   }
-}; // optional rendering options (see documentation)
 
-// optional rendering options (see documentation)
+
+}; // optional rendering options (see documentation)
 
 
 class Register extends Component {
@@ -149,7 +219,9 @@ class Register extends Component {
    render() {
      return (
        <View style={styles.container}>
-        <ScrollView>
+        <ScrollView style={styles.scroll}>
+
+         <Image source={require('../3forponglogo.png')} style={styles.logo} />
          {/* display */}
          <Form
            ref="form"
@@ -160,6 +232,7 @@ class Register extends Component {
            onChange={this.onChange}
          />
 
+         </ScrollView>
          <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
            <Text style={styles.buttonText}>REGISTER</Text>
          </TouchableHighlight>
@@ -173,9 +246,18 @@ class Register extends Component {
    container: {
      flex: 1,
      justifyContent: 'center',
-     marginTop: 50,
      padding: 20,
-     backgroundColor: 'darkgreen',
+     backgroundColor: '#1B676B',
+   },
+   scroll: {
+     flex: 1,
+     marginBottom: -370,
+   },
+   logo: {
+     maxWidth: 100,
+     maxHeight: 100,
+     marginBottom: 10,
+     alignSelf: 'center',
    },
    title: {
      fontSize: 30,
@@ -184,19 +266,20 @@ class Register extends Component {
      color: 'white',
    },
    buttonText: {
-     fontSize: 18,
+     fontSize: 24,
      color: 'white',
      alignSelf: 'center'
    },
    button: {
-     height: 36,
-     backgroundColor: '#48BBEC',
-     borderColor: '#48BBEC',
-     borderWidth: 1,
-     borderRadius: 8,
-     marginBottom: 10,
+     justifyContent: 'center',
      alignSelf: 'stretch',
-     justifyContent: 'center'
+     backgroundColor: '#88C425',
+     paddingTop: 25,
+     paddingBottom: 25,
+     width: Dimensions.get('window').width,
+     marginLeft: -20,
+     marginTop: 30,
+     marginBottom: -20,
    }
  });
 
