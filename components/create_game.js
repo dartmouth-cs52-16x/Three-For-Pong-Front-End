@@ -14,9 +14,8 @@ var Form = t.form.Form;
 
 var GameForm = t.struct({
 
-  Need: t.String,  // an optional string
-  At: t.String              // a required number
-
+  Need: t.Number,  // an optional string
+  At: t.String
 });
 
 var options = {};
@@ -37,6 +36,32 @@ class CreateGame extends Component {
 
    _onPress() {
      //var value = this.refs.form.getValue();
+     var value = this.refs.form.getValue();
+     if (!value) {
+       console.log("Problems");
+     }
+     var num_needed = (4 - value.Need);
+     var time = value.At;
+
+     fetch('https://threeforpong.herokuapp.com/api/listings/', {
+       method: 'POST',
+       headers: {
+         'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk',
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify({
+         host_user_id: '57ba14d6e9dfd5220019f381',
+         num_looking_for_game: `${num_needed}`,
+         location_id: '57ba112be9dfd5220019f380',
+         start_time: `${time}`
+       })
+     })
+     .then((response) => response.json())
+     .then((responseData) => {
+       console.log(responseData)
+     })
+     .done();
+
      this.props.navigator.push({
        title: 'Games',
        component: Dashboard,
