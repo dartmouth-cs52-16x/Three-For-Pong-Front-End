@@ -101,7 +101,7 @@ class Dashboard extends Component {
         Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
         </Text>
         <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.joinButtonText}>></Text>
+          <Text style={styles.joinButtonText}>+</Text>
         </TouchableHighlight>
       </View>
     )
@@ -114,9 +114,9 @@ class Dashboard extends Component {
         <Image source={require('../3forponglogo.png')} style={styles.headerLogo} />
       </TouchableHighlight>
 
-        <Text style={styles.welcome}>
-          pong === life
-        </Text>
+      <TouchableHighlight style={styles.settingsButton}>
+        <Text style={styles.settingsButtonText}>settings</Text>
+      </TouchableHighlight>
 
       <ListView
         dataSource={this.state.dataSource}
@@ -136,16 +136,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#1B676B',
+    backgroundColor: '#f0f0f0',
     marginTop: 60,
-  },
-  welcome: {
-    fontSize: 16,
-    fontFamily: 'Courier',
-    textAlign: 'center',
-    margin: 10,
-    color: 'white',
-    marginBottom: -30,
   },
   row: {
     backgroundColor: 'white',
@@ -153,7 +145,8 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderLeftColor: 'white',
     borderRightColor: 'white',
-    paddingTop: 20,
+    paddingTop: 27,
+    paddingBottom: 5,
     paddingLeft: 40,
     paddingRight: 40,
     marginRight: -5,
@@ -163,6 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#363636',
     marginLeft: -20,
+    marginBottom: -7,
   },
   buttonText: {
     fontSize: 24,
@@ -183,14 +177,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingTop: 10,
     paddingBottom: 10,
-    marginBottom: 0,
-    width: 30,
-    height: 60,
-    marginTop: -44,
-    marginLeft: 310,
+    marginBottom: 20,
+    width: 50,
+    height: 30,
+    marginTop: -20,
+    marginLeft: 270,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#cccccc',
   },
   joinButtonText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#1B676B',
     alignSelf: 'center'
@@ -210,6 +207,19 @@ const styles = StyleSheet.create({
     marginTop: -15,
     marginBottom: -475,
     alignSelf: 'center',
+  },
+  settingsButton: {
+    marginBottom: 25,
+    marginTop: -50,
+    marginLeft: 270,
+    borderRadius: 5,
+    borderColor: 'white',
+    borderWidth: 1,
+  },
+  settingsButtonText: {
+    fontSize: 14,
+    color: 'white',
+    padding: 5,
   }
 });
 export default Dashboard;

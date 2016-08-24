@@ -5,6 +5,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Dimensions,
   View,
   NavigatorIOS,
   TouchableHighlight,
@@ -17,6 +18,16 @@ import t from 'tcomb-form-native';
 // clone the default stylesheet
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
+stylesheet.textbox.normal.color = '#FFFFFF';
+stylesheet.textbox.normal.borderRadius = 0;
+stylesheet.textbox.normal.borderLeftColor = '#1B676B';
+stylesheet.textbox.normal.borderRightColor = '#1B676B';
+stylesheet.textbox.normal.borderTopColor = '#1B676B';
+stylesheet.textbox.normal.width = 300;
+stylesheet.textbox.normal.height = 70;
+stylesheet.textbox.normal.fontSize = 36;
+stylesheet.textbox.normal.marginTop = 245;
+
 var Form = t.form.Form;
 
 var PinForm = t.struct({
@@ -24,7 +35,23 @@ var PinForm = t.struct({
   Pin: t.Number
 });
 
-var options = {};
+var options = {
+  auto: 'placeholders',
+  fields: {
+    Pin: {
+      keyboardType: 'email-address',
+      autoCorrect: false,
+      autoCapitalize: 'none',
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'next',
+      autoCapitalize: 'none',
+      stylesheet: stylesheet,
+    }
+  }
+};
 
 class PinAuth extends Component {
   constructor(props) {
@@ -77,7 +104,7 @@ class PinAuth extends Component {
         style={styles.title}
       />
        <TouchableHighlight onPress={this._onPress} style={styles.Registerbutton}>
-          <Text>SUBMIT</Text>
+          <Text style={styles.buttonText}>SUBMIT</Text>
        </TouchableHighlight>
       </View>
     );
@@ -88,7 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: 'darkgreen',
+    backgroundColor: '#1B676B',
   },
   title: {
     fontSize: 30,
@@ -96,15 +123,21 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     color: 'white',
   },
+  buttonText: {
+    fontSize: 24,
+    color: 'white',
+    alignSelf: 'center'
+  },
   Registerbutton: {
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#eeeeee',
-    paddingTop:5,
-    padding: 10,
-    marginRight: 5,
-    marginLeft: 5,
-    }
+    alignSelf: 'stretch',
+    backgroundColor: '#88C425',
+    paddingTop: 25,
+    paddingBottom: 25,
+    width: Dimensions.get('window').width,
+    marginTop: 240,
+    marginBottom: -20,
+  }
 });
 
 export default PinAuth
