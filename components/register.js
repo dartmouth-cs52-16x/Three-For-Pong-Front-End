@@ -22,8 +22,7 @@ let Form = t.form.Form;
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 var Person = t.struct({
-  FirstName: t.String,
-  LastName: t.String,            // a required string
+  fullName: t.String,
   phoneNumber: t.String,
   email: t.String,  // an optional string
   password: t.String,               // a required number
@@ -42,19 +41,7 @@ stylesheet.textbox.normal.borderTopColor = '#1B676B';
 let options = {
   auto: 'placeholders',
   fields: {
-    FirstName: {
-      keyboardType: 'email-address',
-      autoCorrect: false,
-      autoCapitalize: 'none',
-      placeholderTextColor: 'white',
-      clearButtonMode: 'while-editing',
-      keyboardAppearance: 'dark',
-      selectionColor: '#88C425',
-      returnKeyType: 'next',
-      autoCapitalize: 'none',
-      stylesheet: stylesheet,
-    },
-    LastName: {
+    fullName: {
       keyboardType: 'email-address',
       autoCorrect: false,
       autoCapitalize: 'none',
@@ -145,8 +132,7 @@ class Register extends Component {
      var LocationList = t.enums(location_dict, 'LocationList');
 
      var temp = t.struct({
-       FirstName: t.String,
-       LastName: t.String,            // a required string
+       fullName: t.String,
        phoneNumber: t.String,
        email: t.String,  // an optional string
        password: t.String,               // a required number
@@ -159,8 +145,7 @@ class Register extends Component {
      this.setState({type: temp, value: value});
    } else {
       var temp = t.struct({
-        FirstName: t.String,
-        LastName: t.String,            // a required string
+        fullName: t.String,
         phoneNumber: t.String,
         email: t.String,  // an optional string
         password: t.String,               // a required number
@@ -198,8 +183,7 @@ class Register extends Component {
     var LocationList = t.enums(location_dict, 'LocationList');
 
     var foo = t.struct({
-      FirstName: t.String,
-      LastName: t.String,            // a required string
+      fullName: t.String,
       phoneNumber: t.String,
       email: t.String,  // an optional string
       password: t.String,               // a required number
@@ -214,7 +198,7 @@ class Register extends Component {
   onPress() {
     var value = this.refs.form.getValue();
     var space = " ";
-    var user_full_name = value.FirstName.concat(space, value.LastName);
+    var user_full_name = value.fullName;
     var user_phone = value.phoneNumber;
     var user_email = value.email;
     var user_password = value.password;
