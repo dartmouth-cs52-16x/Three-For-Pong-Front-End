@@ -19,7 +19,47 @@ var GameForm = t.struct({
 
 });
 
-var options = {};
+// overriding the text color
+stylesheet.textbox.normal.color = '#FFFFFF';
+stylesheet.textbox.normal.borderRadius = 0;
+stylesheet.textbox.normal.borderLeftColor = '#1B676B';
+stylesheet.textbox.normal.borderRightColor = '#1B676B';
+stylesheet.textbox.normal.borderTopColor = '#1B676B';
+stylesheet.textbox.normal.height = 100;
+stylesheet.textbox.normal.fontSize = 48;
+
+
+
+
+var options = {
+  auto: 'placeholders',
+  fields: {
+    Need: {
+      keyboardType: 'phone-pad',
+      autoCorrect: false,
+      autoCapitalize: 'none',
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'next',
+      autoCapitalize: 'none',
+      stylesheet: stylesheet,
+    },
+    At: {
+      keyboardType: 'default',
+      autoCorrect: false,
+      autoCapitalize: 'none',
+      placeholderTextColor: 'white',
+      clearButtonMode: 'while-editing',
+      keyboardAppearance: 'dark',
+      selectionColor: '#88C425',
+      returnKeyType: 'next',
+      autoCapitalize: 'none',
+      stylesheet: stylesheet,
+    }
+  }
+};
 
 class CreateGame extends Component {
 
@@ -59,7 +99,7 @@ class CreateGame extends Component {
          style={styles.title}
        />
        <TouchableHighlight style={styles.button} onPress={this._onPress} underlayColor='#99d9f4'>
-         <Text style={styles.buttonText}>CREATE GAME</Text>
+         <Text style={styles.buttonText}>CREATE</Text>
        </TouchableHighlight>
      </View>
    );
@@ -70,15 +110,14 @@ class CreateGame extends Component {
  container: {
    flex: 1,
    justifyContent: 'center',
-   marginTop: 50,
    padding: 20,
    backgroundColor: '#1B676B',
  },
  logo: {
    maxWidth: 150,
    maxHeight: 150,
-   marginTop: 300,
-   marginBottom: 60,
+   marginTop: 200,
+   marginBottom: 40,
    alignSelf: 'center',
  },
  title: {
@@ -102,8 +141,8 @@ class CreateGame extends Component {
    paddingBottom: 25,
    width: Dimensions.get('window').width,
    marginLeft: -20,
-   marginTop: 150,
-   marginBottom: -140,
+   marginTop: 105,
+   marginBottom: -230,
  }
  });
 
