@@ -81,9 +81,8 @@ class Dashboard extends Component {
     return (
       <View style={styles.row}>
         <Text>
-        Need: {data.num_still_needed_for_game}{'\n'}
-        Location: {data.location.location_name}{'\n'}
-        Time: {data.start_time}
+        Need {data.num_still_needed_for_game} at {data.location.location_name}{'\n'}
+        at {data.start_time}
         </Text>
       </View>
     )
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'darkgreen',
+    backgroundColor: '#1B676B',
   },
   welcome: {
     fontSize: 20,
@@ -129,17 +128,22 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   button: {
-        backgroundColor: '#eeeeee',
-        padding: 10,
-        marginRight: 5,
-        marginLeft: 5,
-        marginBottom: 5,
-    },
+    backgroundColor: '#eeeeee',
+    padding: 10,
+    marginRight: 5,
+    marginLeft: 5,
+    marginBottom: 5,
+  },
   row: {
     backgroundColor: 'white',
-    color: 'black',
-    borderColor: 'black',
+    // color: 'black',
+    borderColor: '#88C425',
     borderWidth: 1,
+    borderLeftColor: 'white',
+    borderRightColor: 'white',
+    padding: 10,
+    paddingLeft: 40,
+    paddingRight: 40,
   }
 });
 export default Dashboard;
