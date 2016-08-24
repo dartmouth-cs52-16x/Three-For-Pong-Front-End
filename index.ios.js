@@ -56,6 +56,10 @@ class Startup extends Component {
       super(props);
       this.state = {
         navigator: this.props.navigator
+<<<<<<< HEAD
+=======
+
+>>>>>>> 707706d8468d099b0f036be64322960f674374b9
       };
 
       this._onLoginForward = this._onLoginForward.bind(this);

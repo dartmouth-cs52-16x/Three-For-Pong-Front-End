@@ -10,7 +10,7 @@ import {
   Alert,
   ListView,
 } from 'react-native';
-
+import * as moment from 'moment';
 
 class Dashboard extends Component {
   constructor(props){
@@ -77,12 +77,13 @@ class Dashboard extends Component {
     })
     .done();
   }
+
   renderRow(data) {
     return (
       <View style={styles.row}>
-        <Text>
+        <Text style={styles.rowtext}>
         Need {data.num_still_needed_for_game} at {data.location.location_name}{'\n'}
-        at {data.start_time}
+        at {data.start_time}.
         </Text>
       </View>
     )
@@ -92,14 +93,9 @@ class Dashboard extends Component {
 
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to Three For Pong!
+          pong is life
         </Text>
-        <Text style={styles.instructions}>
-          Click here to see available games!
-        </Text>
-        <TouchableHighlight onPress={this._onPressButtonGet} style={styles.button}>
-          <Text>GET</Text>
-        </TouchableHighlight>
+
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderRow}
@@ -114,29 +110,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#1B676B',
+    marginTop: 60,
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
     color: 'white',
+    marginBottom: -25,
   },
-  instructions: {
+  bottomText: {
+    fontSize: 20,
     textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    margin: 10,
     color: 'white',
-  },
-  button: {
-    backgroundColor: '#eeeeee',
-    padding: 10,
-    marginRight: 5,
-    marginLeft: 5,
-    marginBottom: 5,
   },
   row: {
     backgroundColor: 'white',
-    // color: 'black',
     borderColor: '#88C425',
     borderWidth: 1,
     borderLeftColor: 'white',
@@ -144,6 +134,10 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 40,
     paddingRight: 40,
+  },
+  rowtext: {
+    fontSize: 22,
+    color: 'black',
   }
 });
 export default Dashboard;

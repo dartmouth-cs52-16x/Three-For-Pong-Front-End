@@ -98,7 +98,6 @@ class Login extends Component {
      title: 'Genius'
    });
    */
-
     // this._onForward();
     this.props.navigator.push({
       title: 'Dash',
