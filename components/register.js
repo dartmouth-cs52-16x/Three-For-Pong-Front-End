@@ -5,7 +5,6 @@ import {
   ScrollView,
   Image,
   Text,
-  ScrollView,
   View,
   NavigatorIOS,
   TouchableHighlight,
@@ -129,6 +128,9 @@ class Register extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.getType = this.getType.bind(this);
+    this.buildLocations = this.buildLocations.bind(this);
+    this.onPress = this.onPress.bind(this);
     //this.createForm = this.createForm.bind(this);
  }
 
@@ -138,7 +140,6 @@ class Register extends Component {
 
  onChange(value) {
 
-   console.log(value);
    if (value.canHost) {
      var location_dict = this.state.dict;
      var LocationList = t.enums(location_dict, 'LocationList');
@@ -182,10 +183,11 @@ class Register extends Component {
     .then((responseData) => {
 
       for(var i = 0; i < responseData.length; i++) {
-        var loc_temp = responseData[i].location_name.replace(/"/g, "'")
         dict[responseData[i].location_id] = responseData[i].location_name
       }
+
       this.getType(dict);
+
       //const LocationList = t.enums.of([data_string], 'LocationList');
 
     })
@@ -211,10 +213,39 @@ class Register extends Component {
   }
   onPress() {
     var value = this.refs.form.getValue();
-    if (value) {
-      console.log(value);
+    var space = " ";
+    var user_full_name = value.FirstName.concat(space, value.LastName);
+    var user_phone = value.phoneNumber;
+    var user_email = value.email;
+    var user_password = value.password;
+    var user_canHost = value.canHost;
+    var user_LocationID = null;
+
+    if(user_canHost) {
+      user_LocationID = value.LocationToHost;
     }
-  }
+
+    fetch('https://threeforpong.herokuapp.com/api/signup/', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify({
+         email: `${user_email}`,
+         full_name: `${user_full_name}`,
+         phone: `${user_phone}`,
+         can_host: `${user_canHost}`,
+         password: `${user_password}`,
+         default_location_id: `${user_LocationID}`
+       })
+     })
+     .then((response) => response.json())
+     .then((responseData) => {
+
+        console.log(responseData);
+     })
+     .done();
+   }
 
    render() {
      return (
@@ -236,7 +267,6 @@ class Register extends Component {
          <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
            <Text style={styles.buttonText}>REGISTER</Text>
          </TouchableHighlight>
-         </ScrollView>
        </View>
      );
    }
