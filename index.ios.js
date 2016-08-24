@@ -65,8 +65,8 @@ class Startup extends Component {
     _onLoginForward() {
       this.props.navigator.push({
        title: 'Login',
-       component: Login
-
+       component: Login,
+       passProps: { navigator: this.props.navigator }
      });
     }
 
