@@ -27,12 +27,11 @@ class Dashboard extends Component {
 
     };
   }
-  componentWillMount() {
-    this.grabUserInfo();
-  }
-  componentDidMount(){
+
+  componentDidMount() {
     this._fetchListings();
   }
+
   _fetchListings() {
     fetch('https://threeforpong.herokuapp.com/api/listings/', {
       method: 'GET',
@@ -100,7 +99,24 @@ class Dashboard extends Component {
         <Text style={styles.rowtext}>
         Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
         </Text>
-        <TouchableHighlight style={styles.joinButton}>
+        <TouchableHighlight style={styles.joinButton} onPress={() => {
+          var listing = data.listing_id;
+          fetch(`https://threeforpong.herokuapp.com/api/listings/join/${listing}`, {
+            method: 'POST',
+            headers: {
+              'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              user_id: '57ba14d6e9dfd5220019f381'
+            })
+          })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log(responseData)
+          })
+          .done();
+        }}>
           <Text style={styles.joinButtonText}>+</Text>
         </TouchableHighlight>
       </View>
