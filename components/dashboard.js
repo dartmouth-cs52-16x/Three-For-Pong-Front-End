@@ -3,6 +3,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Dimensions,
   View,
   Navigator,
   TouchableHighlight,
@@ -85,6 +86,9 @@ class Dashboard extends Component {
         Need {data.num_still_needed_for_game} at {data.location.location_name}{'\n'}
         at {data.start_time}.
         </Text>
+        <TouchableHighlight style={styles.joinButton}>
+          <Text style={styles.joinButtonText}>></Text>
+        </TouchableHighlight>
       </View>
     )
   }
@@ -93,13 +97,18 @@ class Dashboard extends Component {
 
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          pong is life
+          pong === life
         </Text>
 
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderRow}
       />
+
+      <TouchableHighlight style={styles.button}>
+        <Text style={styles.buttonText}>CREATE GAME</Text>
+      </TouchableHighlight>
+
     </View>
     );
   }
@@ -114,30 +123,59 @@ const styles = StyleSheet.create({
   },
   welcome: {
     fontSize: 20,
+    fontFamily: 'Courier',
     textAlign: 'center',
     margin: 10,
     color: 'white',
-    marginBottom: -25,
-  },
-  bottomText: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: 'white',
+    marginBottom: -26,
   },
   row: {
     backgroundColor: 'white',
-    borderColor: '#88C425',
-    borderWidth: 1,
+    borderColor: '#cccccc',
+    borderWidth: .5,
     borderLeftColor: 'white',
     borderRightColor: 'white',
     padding: 10,
     paddingLeft: 40,
     paddingRight: 40,
+    marginRight: -5,
+    marginLeft: -5,
   },
   rowtext: {
     fontSize: 22,
-    color: 'black',
+    color: '#363636',
+    marginLeft: -20,
+  },
+  buttonText: {
+    fontSize: 24,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#88C425',
+    paddingTop: 25,
+    paddingBottom: 25,
+    width: Dimensions.get('window').width,
+  },
+  joinButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginBottom: -10,
+    width: 30,
+    height: 80,
+    marginTop: -63,
+    marginLeft: 310,
+  },
+  joinButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1B676B',
+    alignSelf: 'center'
   }
 });
 export default Dashboard;
