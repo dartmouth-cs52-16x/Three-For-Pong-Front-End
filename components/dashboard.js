@@ -20,6 +20,7 @@ class Dashboard extends Component {
           rowHasChanged: (row1, row2) => row1 !== row2,
         })
     };
+    this._fetchListings=this._fetchListings.bind(this);
   }
   componentDidMount(){
     this._fetchListings();
@@ -53,9 +54,9 @@ class Dashboard extends Component {
       },
       body: JSON.stringify({
         host_user_id: '57ba14d6e9dfd5220019f381',
-        num_looking_for_game: '3',
+        num_looking_for_game: '2',
         location_id: '57ba112be9dfd5220019f380',
-        start_time: 'August 10, 2015 10:00 pm'
+        start_time: 'August 10, 2015 5:00 pm'
       })
     })
     .then((response) => response.json())
@@ -77,15 +78,35 @@ class Dashboard extends Component {
     })
     .done();
   }
-  renderRow(data) {
+
+  renderRow(rowData, sectionID, rowID) {
     return (
-      <View style={styles.row}>
-        <Text>
-        Need: {data.num_still_needed_for_game}{'\n'}
-        Location: {data.location.location_name}{'\n'}
-        Time: {data.start_time}
-        </Text>
-      </View>
+      <TouchableHighlight onPress={ () => {
+        var listing = rowData.listing_id;
+        fetch(`https://threeforpong.herokuapp.com/api/listings/join/${listing}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            user_id: '57ba14d6e9dfd5220019f381'
+          })
+        })
+        .then((response) => response.json())
+        .then((responseData) => {
+          console.log(responseData)
+        })
+        .done();
+      }}>
+        <View style={styles.row}>
+          <Text>
+            Need: {rowData.num_still_needed_for_game}{'\n'}
+            Location: {rowData.location.location_name}{'\n'}
+            Time: {rowData.start_time}
+          </Text>
+        </View>
+      </TouchableHighlight>
     )
   }
   render() {
