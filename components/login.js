@@ -4,7 +4,12 @@ import React, { Component } from 'react';
 import { Dimensions, AppRegistry, View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
 import _ from 'lodash';
+<<<<<<< HEAD
 import Register from './register.js';
+=======
+import Dashboard from './dashboard.js';
+
+>>>>>>> ce963f518f8b2ff6b2a926c193df54bb145370fa
 // clone the default stylesheet
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
@@ -57,8 +62,15 @@ class Login extends Component {
   constructor(props){
    super(props);
    this._onPress = this._onPress.bind(this);
- }
+   this._onForward = this._onForward.bind(this);
 
+ }
+ _onForward() {
+   this.props.navigator.push({
+     title: 'Dash',
+     component: Dashboard
+   });
+ }
   _onPress() {
     var value = this.refs.form.getValue();
     var user_email = value.email;
@@ -77,16 +89,26 @@ class Login extends Component {
     })
     .then((response) => response.json())
     .then((responseData) => {
-
-       console.log(responseData);
+      var user_id = responseData.user_id;
+      var token = responseData.token;
+      console.log(user_id);
+      console.log(token);
     })
     .done();
+<<<<<<< HEAD
 
     this.props.navigator.push({
      component: Register,
      title: 'Genius'
    });
    */
+=======
+    // this._onForward();
+    this.props.navigator.push({
+      title: 'Dash',
+      component: Dashboard
+    });
+>>>>>>> ce963f518f8b2ff6b2a926c193df54bb145370fa
   }
 
   render() {

@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginRight: 5,
     marginLeft: 5,
-    }
+  },
   Registerbutton: {
     justifyContent: 'center',
     alignItems: 'center',

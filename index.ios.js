@@ -56,7 +56,11 @@ class Startup extends Component {
       super(props);
       this.state = {
         navigator: this.props.navigator
+
        };
+
+      };
+
       this._onLoginForward = this._onLoginForward.bind(this);
       this._onRegisterForward = this._onRegisterForward.bind(this);
     }
@@ -72,7 +76,8 @@ class Startup extends Component {
   _onRegisterForward() {
     this.props.navigator.push({
      title: 'Register',
-     component: Register
+     component: Register,
+     passProps: { navigator: this.props.navigator }
    });
   }
 
