@@ -51,7 +51,12 @@ class PinAuth extends Component {
 
     return (
       <View style={styles.container}>
-
+      <Form
+        ref="form"
+        type={PinForm}
+        options={options}
+        style={styles.title}
+      />
        <TouchableHighlight onPress={this._onPress} style={styles.Registerbutton}>
           <Text>NEXT</Text>
        </TouchableHighlight>
@@ -65,6 +70,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     backgroundColor: 'darkgreen',
+  },
+  title: {
+    fontSize: 30,
+    alignSelf: 'center',
+    marginBottom: 30,
+    color: 'white',
   },
   Registerbutton: {
     justifyContent: 'center',
