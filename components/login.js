@@ -101,7 +101,7 @@ class Login extends Component {
    */
     // this._onForward();
     this.props.navigator.push({
-      title: 'Dash',
+      title: 'Games',
       component: Dashboard
     });
   }

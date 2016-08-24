@@ -5,13 +5,14 @@ import {
   Text,
   Dimensions,
   View,
+  Image,
   Navigator,
   TouchableHighlight,
   AlertIOS,
   Alert,
   ListView,
 } from 'react-native';
-import * as moment from 'moment';
+import moment from 'moment';
 
 class Dashboard extends Component {
   constructor(props){
@@ -83,8 +84,7 @@ class Dashboard extends Component {
     return (
       <View style={styles.row}>
         <Text style={styles.rowtext}>
-        Need {data.num_still_needed_for_game} at {data.location.location_name}{'\n'}
-        at {data.start_time}.
+        Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
         </Text>
         <TouchableHighlight style={styles.joinButton}>
           <Text style={styles.joinButtonText}>></Text>
@@ -96,6 +96,10 @@ class Dashboard extends Component {
     return (
 
       <View style={styles.container}>
+      <TouchableHighlight style={styles.header}>
+        <Image source={require('../3forponglogo.png')} style={styles.headerLogo} />
+      </TouchableHighlight>
+
         <Text style={styles.welcome}>
           pong === life
         </Text>
@@ -122,27 +126,27 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 16,
     fontFamily: 'Courier',
     textAlign: 'center',
     margin: 10,
     color: 'white',
-    marginBottom: -26,
+    marginBottom: -30,
   },
   row: {
     backgroundColor: 'white',
-    borderColor: '#cccccc',
-    borderWidth: .5,
+    borderColor: '#f0f0f0',
+    borderWidth: 4,
     borderLeftColor: 'white',
     borderRightColor: 'white',
-    padding: 10,
+    paddingTop: 20,
     paddingLeft: 40,
     paddingRight: 40,
     marginRight: -5,
     marginLeft: -5,
   },
   rowtext: {
-    fontSize: 22,
+    fontSize: 20,
     color: '#363636',
     marginLeft: -20,
   },
@@ -165,10 +169,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingTop: 10,
     paddingBottom: 10,
-    marginBottom: -10,
+    marginBottom: 0,
     width: 30,
-    height: 80,
-    marginTop: -63,
+    height: 60,
+    marginTop: -44,
     marginLeft: 310,
   },
   joinButtonText: {
@@ -176,6 +180,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#1B676B',
     alignSelf: 'center'
+  },
+  header: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#1B676B',
+    paddingTop: 25,
+    paddingBottom: 25,
+    width: Dimensions.get('window').width,
+    marginTop: -40,
+  },
+  headerLogo: {
+    maxWidth: 50,
+    maxHeight: 50,
+    marginTop: -15,
+    marginBottom: -475,
+    alignSelf: 'center',
   }
 });
 export default Dashboard;

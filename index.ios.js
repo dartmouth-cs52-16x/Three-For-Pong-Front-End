@@ -46,7 +46,7 @@ class ThreeForPong extends Component {
           title: '',
         }}
         style={{flex: 1}}
-      navigationBarHidden={false} />
+      navigationBarHidden={true} />
     );
   }
 }
@@ -56,15 +56,7 @@ class Startup extends Component {
       super(props);
       this.state = {
         navigator: this.props.navigator
-<<<<<<< HEAD
        };
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> 707706d8468d099b0f036be64322960f674374b9
-      };
->>>>>>> 55bbbf9172b25ad4a9a6df48cfb814e2d24e31fb
 
       this._onLoginForward = this._onLoginForward.bind(this);
       this._onRegisterForward = this._onRegisterForward.bind(this);

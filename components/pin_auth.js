@@ -10,10 +10,9 @@ import {
   TouchableHighlight,
   AlertIOS,
 } from 'react-native';
-
-
 import _ from 'lodash';
 import Dashboard from './dashboard.js';
+import t from 'tcomb-form-native';
 
 // clone the default stylesheet
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
