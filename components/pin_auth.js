@@ -10,6 +10,7 @@ import {
   TouchableHighlight,
   AlertIOS,
 } from 'react-native';
+import t from 'tcomb-form-native';
 
 
 import _ from 'lodash';
