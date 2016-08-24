@@ -11,7 +11,7 @@ import {
   Alert,
   ListView,
 } from 'react-native';
-import * as moment from 'moment';
+import moment from 'moment';
 
 class Dashboard extends Component {
   constructor(props){
@@ -83,8 +83,7 @@ class Dashboard extends Component {
     return (
       <View style={styles.row}>
         <Text style={styles.rowtext}>
-        Need {data.num_still_needed_for_game} at {data.location.location_name}{'\n'}
-        at {data.start_time}.
+        Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
         </Text>
         <TouchableHighlight style={styles.joinButton}>
           <Text style={styles.joinButtonText}>></Text>
