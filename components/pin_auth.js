@@ -66,30 +66,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'darkgreen',
   },
-  welcome: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: 'white',
-  },
-  instructions: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-    color: 'white',
-  },
-  Loginbutton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#eeeeee',
-    padding: 10,
-    marginRight: 5,
-    marginLeft: 5,
-  },
   Registerbutton: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -101,4 +77,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Startup
+export default PinAuth
