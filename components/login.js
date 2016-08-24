@@ -4,12 +4,9 @@ import React, { Component } from 'react';
 import { Dimensions, AppRegistry, View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
 import _ from 'lodash';
-<<<<<<< HEAD
 import Register from './register.js';
-=======
 import Dashboard from './dashboard.js';
 
->>>>>>> ce963f518f8b2ff6b2a926c193df54bb145370fa
 // clone the default stylesheet
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
@@ -102,13 +99,11 @@ class Login extends Component {
      title: 'Genius'
    });
    */
-=======
     // this._onForward();
     this.props.navigator.push({
       title: 'Dash',
       component: Dashboard
     });
->>>>>>> ce963f518f8b2ff6b2a926c193df54bb145370fa
   }
 
   render() {
@@ -123,7 +118,6 @@ class Login extends Component {
           type={LoginForm}
           options={options}
           style={styles.title}
-
         />
         <TouchableHighlight style={styles.button} onPress={this._onPress} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>LOGIN</Text>
