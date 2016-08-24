@@ -38,6 +38,8 @@ var options = {
       selectionColor: '#88C425',
       returnKeyType: 'go',
       stylesheet: stylesheet,
+      error: 'The password was incorrect'
+
     },
     email: {
       keyboardType: 'email-address',
@@ -50,6 +52,7 @@ var options = {
       returnKeyType: 'next',
       autoCapitalize: 'none',
       stylesheet: stylesheet,
+      error: 'Insert a valid Dartmouth email'
     },
   },
 }
@@ -70,8 +73,13 @@ class Login extends Component {
  }
   _onPress() {
     var value = this.refs.form.getValue();
+
+    if (!value) {
+      console.log("Problems");
+    }
     var user_email = value.email;
     var user_password = value.password;
+
     console.log(value);
     /*
    fetch('https://threeforpong.herokuapp.com/api/signin/', {
