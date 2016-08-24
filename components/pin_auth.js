@@ -57,7 +57,8 @@ class PinAuth extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      navigator: this.props.navigator
+      navigator: this.props.navigator,
+      user_id: this.props.user_id
     };
 
     this._onPress = this._onPress.bind(this);
@@ -66,10 +67,29 @@ class PinAuth extends Component {
   _onPress() {
     var value = this.refs.form.getValue();
     var pin = value.Pin;
-    console.log(value);
+    var user_id = this.state.user_id;
+    var token = null;
+    fetch(`https://threeforpong.herokuapp.com/api/verify/${user_id}`, {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify({
+         verify_token: `${pin}`
+       })
+     })
+     .then((response) => response.json())
+     .then((responseData) => {
+       user_id = responseData.user_id;
+       token = responseData.token;
+       console.log(user_id);
+       console.log(token);
+     })
+     .done();
+
     this.props.navigator.push({
-     title: 'Login',
-     component: Login
+     title: 'All Games',
+     component: Dashboard
    });
   }
 
