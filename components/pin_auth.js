@@ -26,7 +26,7 @@ stylesheet.textbox.normal.borderTopColor = '#1B676B';
 stylesheet.textbox.normal.width = 300;
 stylesheet.textbox.normal.height = 70;
 stylesheet.textbox.normal.fontSize = 36;
-stylesheet.textbox.normal.marginTop = 245;
+stylesheet.textbox.normal.marginTop = 100;
 
 var Form = t.form.Form;
 
@@ -97,6 +97,9 @@ class PinAuth extends Component {
 
     return (
       <View style={styles.container}>
+
+      <Text style={styles.infoText}>Check your email for a {'\n'} pin and enter it here:</Text>
+
       <Form
         ref="form"
         type={PinForm}
@@ -135,8 +138,13 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     paddingBottom: 25,
     width: Dimensions.get('window').width,
-    marginTop: 240,
-    marginBottom: -20,
+    marginTop: 200,
+    marginBottom: -95,
+  },
+  infoText: {
+    marginTop: 50,
+    color: 'white',
+    fontSize: 24,
   }
 });
 

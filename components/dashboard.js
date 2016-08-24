@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f0f0f0',
-    marginTop: 60,
+    marginTop: 40,
   },
   row: {
     backgroundColor: 'white',
@@ -229,9 +229,9 @@ const styles = StyleSheet.create({
   },
   header: {
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: '#1B676B',
-    paddingTop: 25,
+    paddingTop: 45,
     paddingBottom: 25,
     width: Dimensions.get('window').width,
     marginTop: -40,
@@ -241,7 +241,8 @@ const styles = StyleSheet.create({
     maxHeight: 50,
     marginTop: -15,
     marginBottom: -475,
-    alignSelf: 'center',
+    marginLeft: 15,
+    alignSelf: 'flex-start',
   },
   settingsButton: {
     marginBottom: 25,

@@ -146,7 +146,6 @@ class Login extends Component {
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginTop: 50,
     padding: 20,
     backgroundColor: '#1B676B',
   },
@@ -178,7 +177,7 @@ class Login extends Component {
     paddingBottom: 25,
     width: Dimensions.get('window').width,
     marginLeft: -20,
-    marginTop: 150,
+    marginTop: 200,
     marginBottom: -140,
   }
   });
