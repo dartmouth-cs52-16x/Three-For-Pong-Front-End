@@ -24,7 +24,6 @@ class Dashboard extends Component {
       dataSource: new ListView.DataSource({
           rowHasChanged: (row1, row2) => row1 !== row2,
         }),
-
     };
   }
 
@@ -116,6 +115,24 @@ class Dashboard extends Component {
             console.log(responseData)
           })
           .done();
+          fetch('https://threeforpong.herokuapp.com/api/listings/', {
+            method: 'GET',
+            headers: {
+              'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk'
+            }
+          })
+          .then((response) => response.json())
+          .then((responseData) => {
+            var data = [];
+            for(var i = 0; i < responseData.length; i++) {
+              data.push(responseData[i]);
+            }
+            this.setState({
+              dataSource: this.state.dataSource.cloneWithRows(data)
+            })
+            console.log('new one');
+            console.log(this.state.dataSource);
+          })
         }}>
           <Text style={styles.joinButtonText}>+</Text>
         </TouchableHighlight>
