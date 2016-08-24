@@ -67,7 +67,6 @@ class Startup extends Component {
        title: 'Login',
        component: Login,
        passProps: { navigator: this.props.navigator }
-
      });
     }
 

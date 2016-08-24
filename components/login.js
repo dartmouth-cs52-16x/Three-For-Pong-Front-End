@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Dimensions, AppRegistry, View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import { Navigator, Dimensions, AppRegistry, View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
 import _ from 'lodash';
 import Register from './register.js';
@@ -61,16 +61,22 @@ class Login extends Component {
 
   constructor(props){
    super(props);
+
+   this.state = {
+     navigator: this.props.navigator
+   };
+
    this._onPress = this._onPress.bind(this);
    this._onForward = this._onForward.bind(this);
+ }
 
- }
- _onForward() {
-   this.props.navigator.push({
-     title: 'Dash',
-     component: Dashboard
-   });
- }
+ // _onForward() {
+ //   this.props.navigator.push({
+ //     title: 'Dash',
+ //     component: Dashboard
+ //   });
+ // }
+
   _onPress() {
     var value = this.refs.form.getValue();
 
@@ -110,7 +116,8 @@ class Login extends Component {
     // this._onForward();
     this.props.navigator.push({
       title: 'Games',
-      component: Dashboard
+      component: Dashboard,
+      passProps: { navigator: this.props.navigator }
     });
   }
 
