@@ -19,12 +19,12 @@ class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      navigator: this.props.navigator,
       user_info: null,
       dataSource: new ListView.DataSource({
           rowHasChanged: (row1, row2) => row1 !== row2,
         }),
     };
+    this._onCreateButtonPress = this._onCreateButtonPress.bind(this);
   }
 
   componentDidMount() {

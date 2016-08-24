@@ -14,7 +14,97 @@ var Form = t.form.Form;
 
 var GameForm = t.struct({
 
-  email: t.String,  // an optional string
-  password: t.String              // a required number
+  Need: t.String,  // an optional string
+  At: t.String              // a required number
 
 });
+
+var options = {};
+
+class CreateGame extends Component {
+
+  constructor(props){
+   super(props);
+
+   this.state = {
+     navigator: this.props.navigator
+   };
+
+   this._onPress = this._onPress.bind(this);
+  //  this._onForward = this._onForward.bind(this);
+ }
+
+
+   _onPress() {
+     //var value = this.refs.form.getValue();
+     this.props.navigator.push({
+       title: 'Games',
+       component: Dashboard,
+       passProps: { navigator: this.props.navigator }
+     });
+   }
+
+
+ render() {
+   return (
+     <View style={styles.container}>
+
+     <Image source={require('../3forponglogo.png')} style={styles.logo} />
+
+       {/* display */}
+       <Form
+         ref="form"
+         type={GameForm}
+         options={options}
+         style={styles.title}
+       />
+       <TouchableHighlight style={styles.button} onPress={this._onPress} underlayColor='#99d9f4'>
+         <Text style={styles.buttonText}>CREATE GAME</Text>
+       </TouchableHighlight>
+     </View>
+   );
+ }
+ }
+
+ const styles = StyleSheet.create({
+ container: {
+   flex: 1,
+   justifyContent: 'center',
+   marginTop: 50,
+   padding: 20,
+   backgroundColor: '#1B676B',
+ },
+ logo: {
+   maxWidth: 150,
+   maxHeight: 150,
+   marginTop: 300,
+   marginBottom: 60,
+   alignSelf: 'center',
+ },
+ title: {
+   fontSize: 30,
+   alignSelf: 'center',
+   marginBottom: -200,
+   marginTop: 200,
+   color: 'white',
+   backgroundColor: 'white',
+ },
+ buttonText: {
+   fontSize: 24,
+   color: 'white',
+   alignSelf: 'center'
+ },
+ button: {
+   justifyContent: 'center',
+   alignItems: 'center',
+   backgroundColor: '#88C425',
+   paddingTop: 25,
+   paddingBottom: 25,
+   width: Dimensions.get('window').width,
+   marginLeft: -20,
+   marginTop: 150,
+   marginBottom: -140,
+ }
+ });
+
+export default CreateGame;

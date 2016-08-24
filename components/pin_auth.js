@@ -57,7 +57,6 @@ class PinAuth extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      navigator: this.props.navigator,
       user_id: this.props.user_id
     };
 
@@ -69,6 +68,7 @@ class PinAuth extends Component {
     var pin = value.Pin;
     var user_id = this.state.user_id;
     var token = null;
+    /*
     fetch(`https://threeforpong.herokuapp.com/api/verify/${user_id}`, {
        method: 'POST',
        headers: {
@@ -86,7 +86,7 @@ class PinAuth extends Component {
        console.log(token);
      })
      .done();
-
+     */
     this.props.navigator.push({
      title: 'All Games',
      component: Dashboard
