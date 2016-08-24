@@ -57,7 +57,7 @@ class PinAuth extends Component {
         style={styles.title}
       />
        <TouchableHighlight onPress={this._onPress} style={styles.Registerbutton}>
-          <Text>NEXT</Text>
+          <Text>SUBMIT</Text>
        </TouchableHighlight>
       </View>
     );

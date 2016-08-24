@@ -13,15 +13,22 @@ import {
   ListView,
 } from 'react-native';
 import moment from 'moment';
+import CreateGame from './create_game'
 
 class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
+      navigator: this.props.navigator,
+      user_info: null,
       dataSource: new ListView.DataSource({
           rowHasChanged: (row1, row2) => row1 !== row2,
-        })
+        }),
+
     };
+  }
+  componentWillMount() {
+    this.grabUserInfo();
   }
   componentDidMount(){
     this._fetchListings();
@@ -80,6 +87,13 @@ class Dashboard extends Component {
     .done();
   }
 
+  _onCreateButtonPress(){
+    this.props.navigator.push({
+      title: 'Create Game',
+      component: CreateGame
+    });
+  }
+
   renderRow(data) {
     return (
       <View style={styles.row}>
@@ -109,7 +123,7 @@ class Dashboard extends Component {
         renderRow={this.renderRow}
       />
 
-      <TouchableHighlight style={styles.button}>
+      <TouchableHighlight onPress={this._onCreateButtonPress} style={styles.button}>
         <Text style={styles.buttonText}>CREATE GAME</Text>
       </TouchableHighlight>
 

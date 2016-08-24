@@ -197,6 +197,7 @@ class Register extends Component {
 
   }
   onPress() {
+    var user_ID = null;
     var value = this.refs.form.getValue();
     var space = " ";
     var user_full_name = value.fullName;
@@ -226,15 +227,16 @@ class Register extends Component {
      })
      .then((response) => response.json())
      .then((responseData) => {
+        user_ID = responseData.user_id;
 
-        console.log(responseData);
      })
      .done();
      */
 
      this.props.navigator.push({
       component: PinAuth,
-      title: 'Genius'
+      title: 'Pin Authorization',
+      passProps: {user_id: user_ID}
     });
    }
 
