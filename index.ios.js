@@ -54,6 +54,9 @@ class ThreeForPong extends Component {
 class Startup extends Component {
   constructor(props) {
       super(props);
+      this.state = {
+        navigator: this.props.navigator
+       };
       this._onLoginForward = this._onLoginForward.bind(this);
       this._onRegisterForward = this._onRegisterForward.bind(this);
     }
@@ -62,6 +65,7 @@ class Startup extends Component {
       this.props.navigator.push({
        title: 'Login',
        component: Login
+
      });
     }
 

@@ -6,11 +6,11 @@ import {
   Image,
   Text,
   View,
-  NavigatorIOS,
   TouchableHighlight,
   AlertIOS,
   Dimensions,
 } from 'react-native';
+import Login from './login';
 import t from 'tcomb-form-native';
 import _ from 'lodash';
 
@@ -224,7 +224,7 @@ class Register extends Component {
     if(user_canHost) {
       user_LocationID = value.LocationToHost;
     }
-
+    /*
     fetch('https://threeforpong.herokuapp.com/api/signup/', {
        method: 'POST',
        headers: {
@@ -245,6 +245,11 @@ class Register extends Component {
         console.log(responseData);
      })
      .done();
+     */
+     this.props.navigator.push({
+      component: Login,
+      title: 'Genius'
+    });
    }
 
    render() {

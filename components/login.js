@@ -1,10 +1,10 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Dimensions, AppRegistry, View, Text, StyleSheet, Image, NavigatorIOS, TouchableHighlight } from 'react-native';
+import { Dimensions, AppRegistry, View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
 import _ from 'lodash';
-
+import Register from './register.js';
 // clone the default stylesheet
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
@@ -64,7 +64,7 @@ class Login extends Component {
     var user_email = value.email;
     var user_password = value.password;
     console.log(value);
-
+    /*
    fetch('https://threeforpong.herokuapp.com/api/signin/', {
       method: 'POST',
       headers: {
@@ -81,6 +81,12 @@ class Login extends Component {
        console.log(responseData);
     })
     .done();
+
+    this.props.navigator.push({
+     component: Register,
+     title: 'Genius'
+   });
+   */
   }
 
   render() {
