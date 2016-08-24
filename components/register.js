@@ -10,7 +10,7 @@ import {
   AlertIOS,
   Dimensions,
 } from 'react-native';
-import Login from './login';
+import PinAuth from './pin_auth';
 import t from 'tcomb-form-native';
 import _ from 'lodash';
 
@@ -124,7 +124,8 @@ class Register extends Component {
       options: options,
       dict: {},
       value: {},
-      type: Person
+      type: Person,
+      navigator: this.props.navigator
     };
 
     this.onChange = this.onChange.bind(this);
@@ -246,8 +247,9 @@ class Register extends Component {
      })
      .done();
      */
+
      this.props.navigator.push({
-      component: Login,
+      component: PinAuth,
       title: 'Genius'
     });
    }

@@ -11,39 +11,49 @@ import {
   AlertIOS,
 } from 'react-native';
 
-class Startup extends Component {
+
+import _ from 'lodash';
+import Dashboard from './dashboard.js';
+
+// clone the default stylesheet
+const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
+
+var Form = t.form.Form;
+
+var PinForm = t.struct({
+
+  Pin: t.Number
+});
+
+var options = {};
+
+class PinAuth extends Component {
   constructor(props) {
-      super(props);
-      this._onLoginForward = this._onLoginForward.bind(this);
-      this._onRegisterForward = this._onRegisterForward.bind(this);
+    super(props);
+    this.state = {
+      navigator: this.props.navigator
+    };
+
+    this._onPress = this._onPress.bind(this);
     }
 
-  _onLoginForward() {
+  _onPress() {
+    var value = this.refs.form.getValue();
+    var pin = value.Pin;
+    console.log(value);
     this.props.navigator.push({
      title: 'Login',
      component: Login
    });
   }
 
-  _onRegisterForward() {
-    this.props.navigator.push({
-     title: 'Register',
-     component: Register
-   });
-  }
-
-
   render() {
 
     return (
       <View style={styles.container}>
 
-       <TouchableHighlight onPress={this._onLoginForward} style={styles.Loginbutton}>
-          <Text>LOGIN</Text>
-       </TouchableHighlight>
-
-       <TouchableHighlight onPress={this._onRegisterForward} style={styles.Registerbutton}>
-          <Text>REGISTER</Text>
+       <TouchableHighlight onPress={this._onPress} style={styles.Registerbutton}>
+          <Text>NEXT</Text>
        </TouchableHighlight>
       </View>
     );

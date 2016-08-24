@@ -56,9 +56,6 @@ class Startup extends Component {
       super(props);
       this.state = {
         navigator: this.props.navigator
-
-       };
-
       };
 
       this._onLoginForward = this._onLoginForward.bind(this);
