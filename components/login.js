@@ -77,8 +77,10 @@ class Login extends Component {
     })
     .then((response) => response.json())
     .then((responseData) => {
-
-       console.log(responseData);
+      var user_id = responseData.user_id;
+      var token = responseData.token;
+      console.log(user_id);
+      console.log(token);
     })
     .done();
   }
