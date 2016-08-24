@@ -64,7 +64,7 @@ class Login extends Component {
    };
 
    this._onPress = this._onPress.bind(this);
-   this._onForward = this._onForward.bind(this);
+  //  this._onForward = this._onForward.bind(this);
  }
 
  // _onForward() {
