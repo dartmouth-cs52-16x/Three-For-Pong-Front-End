@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Login from './login.js';
 import Register from './register.js';
+// import storage from 'react-native-simple-store';
+
 import {
   AppRegistry,
   StyleSheet,
@@ -49,6 +51,7 @@ var options = {
       returnKeyType: 'next',
       autoCapitalize: 'none',
       stylesheet: stylesheet,
+      error: 'Please input the authentication pin'
     }
   }
 };
@@ -65,6 +68,9 @@ class PinAuth extends Component {
 
   _onPress() {
     var value = this.refs.form.getValue();
+    if (!value) {
+      return null;
+    }
     var pin = value.Pin;
     var user_id = this.state.user_id;
     var token = null;
@@ -89,7 +95,8 @@ class PinAuth extends Component {
      */
     this.props.navigator.push({
      title: 'All Games',
-     component: Dashboard
+     component: Dashboard,
+     passProps: {user_id:user_id}
    });
   }
 

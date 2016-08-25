@@ -147,7 +147,7 @@ class Dashboard extends Component {
         <Image source={require('../3forponglogo.png')} style={styles.headerLogo} />
       </TouchableHighlight>
 
-      <TouchableHighlight style={styles.settingsButton}>
+      <TouchableHighlight style={styles.settingsButton} onPress={this._onSettingsButtonPress}>
         <Text style={styles.settingsButtonText}>settings</Text>
       </TouchableHighlight>
 

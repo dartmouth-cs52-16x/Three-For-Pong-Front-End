@@ -6,6 +6,7 @@ import t from 'tcomb-form-native';
 import _ from 'lodash';
 import Register from './register.js';
 import Dashboard from './dashboard.js';
+// import storage from 'react-native-simple-store';
 
 // clone the default stylesheet
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
@@ -122,7 +123,7 @@ class Login extends Component {
     this.props.navigator.push({
       title: 'Games',
       component: Dashboard,
-      passProps: { navigator: this.props.navigator }
+      passProps: { user_id: user_id, navigator: this.props.navigator }
     });
   }
 
