@@ -14,11 +14,11 @@ var Form = t.form.Form;
 
 
 var Positive = t.refinement(t.Number, function (n) {
-  return ((n >= 1) && (n<=4));
+  return ((n >= 1) && (n<=3));
 });
 
 Positive.getValidationErrorMessage = function (value, path, context) {
-  return 'Please request between 1 and 4 Players';
+  return 'Please request between 1 and 3 Players';
 };
 
 var GameForm = t.struct({
