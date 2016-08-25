@@ -12,9 +12,18 @@ const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 var Form = t.form.Form;
 
+
+var Positive = t.refinement(t.Number, function (n) {
+  return ((n >= 1) && (n<=4));
+});
+
+Positive.getValidationErrorMessage = function (value, path, context) {
+  return 'Please request between 1 and 4 Players';
+};
+
 var GameForm = t.struct({
 
-  Need: t.Number,  // an optional string
+  Need: Positive,  // an optional string
   At: t.String
 });
 
@@ -26,8 +35,6 @@ stylesheet.textbox.normal.borderRightColor = '#1B676B';
 stylesheet.textbox.normal.borderTopColor = '#1B676B';
 stylesheet.textbox.normal.height = 100;
 stylesheet.textbox.normal.fontSize = 48;
-
-
 
 
 var options = {
@@ -79,6 +86,7 @@ class CreateGame extends Component {
      var value = this.refs.form.getValue();
      if (!value) {
        console.log("Problems");
+       return null;
      }
      var num_needed = (4 - value.Need);
      var time = value.At;
@@ -122,6 +130,7 @@ class CreateGame extends Component {
          type={GameForm}
          options={options}
          style={styles.title}
+         context={{locale: 'it-IT'}}
        />
        <TouchableHighlight style={styles.button} onPress={this._onPress} underlayColor='#99d9f4'>
          <Text style={styles.buttonText}>CREATE</Text>

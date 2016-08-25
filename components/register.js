@@ -23,7 +23,7 @@ const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 var Person = t.struct({
   fullName: t.String,
-  phoneNumber: t.String,
+  phoneNumber: t.Number,
   email: t.String,  // an optional string
   password: t.String,               // a required number
   confirmPassword: t.String,        // check if password is correct
@@ -52,9 +52,10 @@ let options = {
       returnKeyType: 'next',
       autoCapitalize: 'none',
       stylesheet: stylesheet,
+      error: 'Please input your first and last name'
     },
     phoneNumber: {
-      keyboardType: 'email-address',
+      keyboardType: 'phone-pad',
       autoCorrect: false,
       autoCapitalize: 'none',
       placeholderTextColor: 'white',
@@ -64,6 +65,7 @@ let options = {
       returnKeyType: 'next',
       autoCapitalize: 'none',
       stylesheet: stylesheet,
+      error: 'Please input a valid phone number'
     },
     email: {
       keyboardType: 'email-address',
@@ -76,6 +78,7 @@ let options = {
       returnKeyType: 'next',
       autoCapitalize: 'none',
       stylesheet: stylesheet,
+      error: 'Please input a valid Dartmouth email'
     },
     password: {
       password: true,
@@ -86,6 +89,7 @@ let options = {
       selectionColor: '#88C425',
       returnKeyType: 'go',
       stylesheet: stylesheet,
+      error:'Please input a valid password'
     },
     confirmPassword: {
       password: true,
@@ -96,6 +100,7 @@ let options = {
       selectionColor: '#88C425',
       returnKeyType: 'go',
       stylesheet: stylesheet,
+      error:'Please confirm your password'
     },
     Locations: {}
   }
@@ -134,7 +139,7 @@ class Register extends Component {
 
      var temp = t.struct({
        fullName: t.String,
-       phoneNumber: t.String,
+       phoneNumber: t.Number,
        email: t.String,  // an optional string
        password: t.String,               // a required number
        confirmPassword: t.String,        // check if password is correct
@@ -147,7 +152,7 @@ class Register extends Component {
    } else {
       var temp = t.struct({
         fullName: t.String,
-        phoneNumber: t.String,
+        phoneNumber: t.Number,
         email: t.String,  // an optional string
         password: t.String,               // a required number
         confirmPassword: t.String,        // check if password is correct
@@ -185,7 +190,7 @@ class Register extends Component {
 
     var foo = t.struct({
       fullName: t.String,
-      phoneNumber: t.String,
+      phoneNumber: t.Number,
       email: t.String,  // an optional string
       password: t.String,               // a required number
       confirmPassword: t.String,        // check if password is correct
@@ -197,8 +202,12 @@ class Register extends Component {
 
   }
   onPress() {
-    var user_ID = null;
+
     var value = this.refs.form.getValue();
+    if (!value) {
+      return null;
+    }
+    var user_ID = null;
     var space = " ";
     var user_full_name = value.fullName;
     var user_phone = value.phoneNumber;
