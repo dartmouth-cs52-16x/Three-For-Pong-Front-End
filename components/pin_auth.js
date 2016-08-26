@@ -39,7 +39,7 @@ var options = {
   auto: 'placeholders',
   fields: {
     Pin: {
-      keyboardType: 'email-address',
+      keyboardType: 'phone-pad',
       autoCorrect: false,
       autoCapitalize: 'none',
       placeholderTextColor: 'white',

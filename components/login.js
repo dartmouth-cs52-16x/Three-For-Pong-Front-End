@@ -12,12 +12,17 @@ const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 var Form = t.form.Form;
 
+var LoginInputs = t.refinement(t.String, function (n) {
+  return (n !== null);
+});
+
 var LoginForm = t.struct({
 
   email: t.String,  // an optional string
   password: t.String              // a required number
 
 });
+
 
 // overriding the text color
 stylesheet.textbox.normal.color = '#FFFFFF';
@@ -38,7 +43,7 @@ var options = {
       selectionColor: '#88C425',
       returnKeyType: 'go',
       stylesheet: stylesheet,
-      error: 'The password was incorrect'
+      error: 'Please insert a valid password'
 
     },
     email: {
@@ -52,7 +57,7 @@ var options = {
       returnKeyType: 'next',
       autoCapitalize: 'none',
       stylesheet: stylesheet,
-      error: 'Insert a valid Dartmouth email'
+      error: 'Please Insert a valid Dartmouth email'
     },
   },
 }
@@ -81,7 +86,7 @@ class Login extends Component {
     var value = this.refs.form.getValue();
 
     if (!value) {
-      console.log("Problems");
+      return null;
     }
     var user_email = value.email;
     var user_password = value.password;
