@@ -20,14 +20,14 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       user_info: null,
-      dataSource: new ListView.DataSource({
-          rowHasChanged: (row1, row2) => row1 !== row2,
-        }),
+      db: [],
+      dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
     };
     this._onCreateButtonPress = this._onCreateButtonPress.bind(this);
+    this._renderRow=this._renderRow.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this._fetchListings();
   }
 
@@ -40,12 +40,12 @@ class Dashboard extends Component {
     })
     .then((response) => response.json())
     .then((responseData) => {
-      var data = [];
+      // var data = [];
       for(var i = 0; i < responseData.length; i++) {
-        data.push(responseData[i]);
+        this.state.db.push(responseData[i]);
       }
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(data)
+        dataSource: this.state.dataSource.cloneWithRows(this.state.db)
       })
       console.log('new one');
       console.log(this.state.dataSource);
@@ -92,7 +92,7 @@ class Dashboard extends Component {
     });
   }
 
-  renderRow(data) {
+  _renderRow(data, sectionID, rowID) {
     return (
       <View style={styles.row}>
         <Text style={styles.rowtext}>
@@ -112,27 +112,24 @@ class Dashboard extends Component {
           })
           .then((response) => response.json())
           .then((responseData) => {
-            console.log(responseData)
-          })
-          .done();
-          fetch('https://threeforpong.herokuapp.com/api/listings/', {
-            method: 'GET',
-            headers: {
-              'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk'
-            }
-          })
-          .then((response) => response.json())
-          .then((responseData) => {
-            var data = [];
-            for(var i = 0; i < responseData.length; i++) {
-              data.push(responseData[i]);
-            }
+            console.log(responseData);
+            var new_num_needed = (this.state.db[rowID].num_still_needed_for_game -1);
+            var newDB = this.state.db.slice();
+            newDB[rowID].num_still_needed_for_game = new_num_needed;
+            console.log(this.state.db[rowID].num_still_needed_for_game);
             this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(data)
-            })
-            console.log('new one');
-            console.log(this.state.dataSource);
+              db: newDB
+            });
           })
+          .then( () => {
+            console.log(this.state.dataSource);
+            this.setState({
+              dataSource: this.state.dataSource.cloneWithRows(this.state.db)
+            });
+            console.log(this.state.dataSource);
+          }
+          )
+          .done();
         }}>
           <Text style={styles.joinButtonText}>+</Text>
         </TouchableHighlight>
@@ -141,7 +138,6 @@ class Dashboard extends Component {
   }
   render() {
     return (
-
       <View style={styles.container}>
       <TouchableHighlight style={styles.header}>
         <Image source={require('../3forponglogo.png')} style={styles.headerLogo} />
@@ -153,9 +149,7 @@ class Dashboard extends Component {
 
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={this.renderRow}
-        loadData={this._fetchListings}
-        refreshDescription="Refreshing listings"
+        renderRow={this._renderRow}
       />
 
       <TouchableHighlight onPress={this._onCreateButtonPress} style={styles.button}>
