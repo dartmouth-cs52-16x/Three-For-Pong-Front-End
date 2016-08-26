@@ -91,7 +91,9 @@ class Dashboard extends Component {
       component: CreateGame
     });
   }
+_onSettingsPress(){
 
+}
   _renderRow(data, sectionID, rowID) {
     return (
       <View style={styles.row}>
@@ -114,21 +116,15 @@ class Dashboard extends Component {
           .then((responseData) => {
             console.log(responseData);
             var new_num_needed = (this.state.db[rowID].num_still_needed_for_game -1);
-            var newDB = this.state.db.slice();
-            newDB[rowID].num_still_needed_for_game = new_num_needed;
-            console.log(this.state.db[rowID].num_still_needed_for_game);
+            var newDB = [...this.state.db];
+            newDB[rowID] = {...newDB[rowID], num_still_needed_for_game: new_num_needed};
+            console.log(newDB[rowID].num_still_needed_for_game);
+            const newsource = this.state.dataSource.cloneWithRows(newDB);
             this.setState({
-              db: newDB
+              db: newDB,
+              dataSource: newsource
             });
           })
-          .then( () => {
-            console.log(this.state.dataSource);
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.state.db)
-            });
-            console.log(this.state.dataSource);
-          }
-          )
           .done();
         }}>
           <Text style={styles.joinButtonText}>+</Text>
@@ -143,7 +139,7 @@ class Dashboard extends Component {
         <Image source={require('../3forponglogo.png')} style={styles.headerLogo} />
       </TouchableHighlight>
 
-      <TouchableHighlight style={styles.settingsButton}>
+      <TouchableHighlight style={styles.settingsButton} onPress={this._onSettingsPress}>
         <Text style={styles.settingsButtonText}>settings</Text>
       </TouchableHighlight>
 
