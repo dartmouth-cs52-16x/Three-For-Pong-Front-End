@@ -123,7 +123,7 @@ class Login extends Component {
     this.props.navigator.push({
       title: 'Games',
       component: Dashboard,
-      passProps: { user_id: user_id, navigator: this.props.navigator }
+      // passProps: { user_id: user_id, navigator: this.props.navigator }
     });
   }
 

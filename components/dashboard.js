@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import CreateGame from './create_game';
+import Settings from './settings';
 
 class Dashboard extends Component {
   constructor(props){
@@ -25,6 +26,7 @@ class Dashboard extends Component {
     };
     this._onCreateButtonPress = this._onCreateButtonPress.bind(this);
     this._renderRow=this._renderRow.bind(this);
+    this._onSettingsButtonPress = this._onSettingsButtonPress.bind(this);
   }
 
   componentWillMount() {
@@ -91,8 +93,11 @@ class Dashboard extends Component {
       component: CreateGame
     });
   }
-_onSettingsPress(){
-
+_onSettingsButtonPress(){
+  this.props.navigator.push({
+    title: 'Settings',
+    component: Settings
+  });
 }
   _renderRow(data, sectionID, rowID) {
     return (
@@ -141,9 +146,6 @@ _onSettingsPress(){
 
 
       <TouchableHighlight style={styles.settingsButton} onPress={this._onSettingsButtonPress}>
-
-      <TouchableHighlight style={styles.settingsButton} onPress={this._onSettingsPress}>
-
         <Text style={styles.settingsButtonText}>settings</Text>
       </TouchableHighlight>
 
