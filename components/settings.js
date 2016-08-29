@@ -81,21 +81,19 @@ class Settings extends Component {
         <View style={styles.container}>
 
           <Image source={require('../3forponglogo.png')} style={styles.logo} />
+
+          <Text style={styles.titletext}>Settings</Text>
           {/* display */}
           <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtext}>
-            Phone     {this.state.phone} >
-          </Text>
+          <Text style={styles.rowtextleft}>Phone Number</Text>
           </TouchableHighlight>
+
           <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtext}>
-            Change Password >
-          </Text>
+          <Text style={styles.rowtextleft}>Password</Text>
           </TouchableHighlight>
+
           <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtext}>
-            Host Location >
-          </Text>
+          <Text style={styles.rowtextleft}>Host Location</Text>
           </TouchableHighlight>
 
         </View>
@@ -114,55 +112,27 @@ const styles = StyleSheet.create({
   logo: {
     maxWidth: 100,
     maxHeight: 100,
-    marginBottom: 10,
+    marginBottom: 20,
+    marginTop: 20,
     alignSelf: 'center',
   },
-  row: {
-    backgroundColor: 'white',
-    borderColor: '#f0f0f0',
-    borderWidth: 4,
-    borderLeftColor: 'white',
-    borderRightColor: 'white',
-    paddingTop: 27,
-    paddingBottom: 5,
-    paddingLeft: 40,
-    paddingRight: 40,
-    marginRight: -5,
-    marginLeft: -5,
-  },
-  rowtext: {
+  rowtextleft: {
     fontSize: 14,
     color: '#363636',
-    marginLeft: -20,
-    marginBottom: -7,
     borderWidth: 1,
     borderColor: '#cccccc',
-  },
-  buttonText: {
-    fontSize: 24,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#88C425',
-    paddingTop: 25,
-    paddingBottom: 25,
     width: Dimensions.get('window').width,
+    padding: 8,
+  },
+  titletext: {
+    fontSize: 30,
+    color: 'white',
+    marginBottom: 20,
   },
   joinButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white'
-
-
-  },
-  joinButtonText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#1B676B',
-    alignSelf: 'center'
+    backgroundColor: 'white',
   }
 });
 
