@@ -149,7 +149,7 @@ _onSettingsButtonPress(){
         <Text style={styles.settingsButtonText}>settings</Text>
       </TouchableHighlight>
 
-      <Text style={styles.nontext}></Text>
+      <Text style={styles.nontext}>pong === life</Text>
 
       <ListView
         dataSource={this.state.dataSource}
@@ -206,6 +206,9 @@ const styles = StyleSheet.create({
   },
   nontext: {
     marginBottom: -15,
+    color: 'gray',
+    fontSize: 16,
+    fontFamily: 'Courier',
   },
   joinButton: {
     justifyContent: 'center',
