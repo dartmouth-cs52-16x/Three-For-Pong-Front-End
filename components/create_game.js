@@ -6,12 +6,14 @@ import t from 'tcomb-form-native';
 import _ from 'lodash';
 import Register from './register.js';
 import Dashboard from './dashboard.js';
+import storage from 'react-native-simple-store';
 
 // clone the default stylesheet
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 var Form = t.form.Form;
 
+let token = storage.get('token');
 
 var Positive = t.refinement(t.Number, function (n) {
   return ((n >= 1) && (n<=3));
@@ -24,7 +26,7 @@ Positive.getValidationErrorMessage = function (value, path, context) {
 var GameForm = t.struct({
 
   Need: Positive,  // an optional string
-  At: t.String
+  At: t.Date
 });
 
 // overriding the text color
@@ -73,7 +75,8 @@ class CreateGame extends Component {
    super(props);
 
    this.state = {
-     navigator: this.props.navigator
+     user_info: this.props.user_info,
+     user_id: this.props.user_id
    };
 
    this._onPress = this._onPress.bind(this);
@@ -90,17 +93,17 @@ class CreateGame extends Component {
      }
      var num_needed = (4 - value.Need);
      var time = value.At;
-
+     console.log(`${this.state.user_info}`);
      fetch('https://threeforpong.herokuapp.com/api/listings/', {
        method: 'POST',
        headers: {
-         'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk',
+         'Authorization': `${token._65}`,
          'Content-Type': 'application/json'
        },
        body: JSON.stringify({
-         host_user_id: '57ba14d6e9dfd5220019f381',
+         host_user_id: `${this.state.user_id}`,
          num_looking_for_game: `${num_needed}`,
-         location_id: '57ba112be9dfd5220019f380',
+         location_id: `${this.state.user_info.default_location._id}`,
          start_time: `${time}`
        })
      })

@@ -15,11 +15,15 @@ import {
 import moment from 'moment';
 import CreateGame from './create_game';
 import Settings from './settings';
+import storage from 'react-native-simple-store';
+
+let token = storage.get('token');
 
 class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
+      token: token._65,
       user_id: this.props.user_id,
       user_info: null,
       db: [],
@@ -37,15 +41,26 @@ class Dashboard extends Component {
 
   buildUserInfo () {
     var user_info = {};
+    var user_id = this.state.user_id;
+    console.log(`token is ${token._65}`);
+    console.log(`user id: ${user_id}`);
     fetch(`https://threeforpong.herokuapp.com/api/users/${user_id}`, {
-      method: 'GET'
+      method:'GET',
+      headers: {
+        'Authorization': `${token._65}`
+      }
     })
-
     .then((response) => response.json())
     .then((responseData) => {
       user_info = responseData;
+      this.setState({
+        user_info: user_info
+      });
     })
-  }
+    .catch((error) => {
+      console.log('woah');
+    })
+}
 
   _fetchListings() {
     fetch('https://threeforpong.herokuapp.com/api/listings/', {
@@ -63,8 +78,6 @@ class Dashboard extends Component {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(this.state.db)
       })
-      console.log('new one');
-      console.log(this.state.dataSource);
     })
   }
   _onPressButtonGet() {
@@ -102,9 +115,16 @@ class Dashboard extends Component {
   }
 
   _onCreateButtonPress(){
+    if (!this.state.user_info.can_host){
+      AlertIOS.alert(
+        "Please change your host settings in order to create a game"
+      );
+      return;
+    }
     this.props.navigator.push({
       title: 'Create Game',
-      component: CreateGame
+      component: CreateGame,
+      passProps: {user_id: this.state.user_id, user_info: this.state.user_info}
     });
   }
 _onSettingsButtonPress(){

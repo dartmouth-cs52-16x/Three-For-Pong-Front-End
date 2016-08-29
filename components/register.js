@@ -102,7 +102,10 @@ let options = {
       stylesheet: stylesheet,
       error:'Please confirm your password'
     },
-    Locations: {}
+    LocationToHost: {
+      selectionColor: '#f7f7f7',
+      nullOption: {value: '', text: 'Choose your location'}
+    }
   }
 
 
@@ -180,7 +183,6 @@ class Register extends Component {
 
       this.getType(dict);
 
-      //const LocationList = t.enums.of([data_string], 'LocationList');
 
     })
 
@@ -199,7 +201,6 @@ class Register extends Component {
 
     });
     this.setState({type:foo, dict:location_dict});
-
 
   }
 
@@ -248,6 +249,7 @@ class Register extends Component {
        response.json();
      } else {
        console.log("We have error");
+       console.log(response);
      }
    }
    )
