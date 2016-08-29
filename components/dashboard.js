@@ -23,7 +23,7 @@ class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      token: token._65,
+      token: `${token._65}`,
       user_id: this.props.user_id,
       user_info: null,
       db: [],
@@ -66,7 +66,7 @@ class Dashboard extends Component {
     fetch('https://threeforpong.herokuapp.com/api/listings/', {
       method: 'GET',
       headers: {
-        'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk'
+        'Authorization': this.state.token
       }
     })
     .then((response) => response.json())
@@ -79,39 +79,6 @@ class Dashboard extends Component {
         dataSource: this.state.dataSource.cloneWithRows(this.state.db)
       })
     })
-  }
-  _onPressButtonGet() {
-    fetch('https://threeforpong.herokuapp.com/api/listings/', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        host_user_id: '57ba14d6e9dfd5220019f381',
-        num_looking_for_game: '3',
-        location_id: '57ba112be9dfd5220019f380',
-        start_time: 'August 10, 2015 10:00 pm'
-      })
-    })
-    .then((response) => response.json())
-    .then((responseData) => {
-      console.log(responseData)
-    })
-    .done();
-    fetch('https://threeforpong.herokuapp.com/api/listings/', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk'
-      }
-    })
-    .then((response) => response.json())
-    .then((responseData) => {
-       AlertIOS.alert(
-         "hi " + `${responseData.length}`
-       )
-    })
-    .done();
   }
 
   _onCreateButtonPress(){
@@ -144,11 +111,11 @@ _onSettingsButtonPress(){
           fetch(`https://threeforpong.herokuapp.com/api/listings/join/${listing}`, {
             method: 'POST',
             headers: {
-              'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk',
+              'Authorization': this.state.token,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              user_id: '57ba14d6e9dfd5220019f381'
+              user_id: this.state.user_id
             })
           })
           .then((response) => response.json())
