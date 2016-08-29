@@ -124,6 +124,7 @@ class Register extends Component {
     this.getType = this.getType.bind(this);
     this.buildLocations = this.buildLocations.bind(this);
     this.onPress = this.onPress.bind(this);
+    this.pushPinAuth = this.pushPinAuth.bind(this);
     //this.createForm = this.createForm.bind(this);
  }
 
@@ -201,6 +202,14 @@ class Register extends Component {
 
 
   }
+
+  pushPinAuth(user_id) {
+    this.props.navigator.push({
+     component: PinAuth,
+     title: 'Pin Authorization',
+     passProps: {user_id: user_id}
+   });
+  }
   onPress() {
 
     var value = this.refs.form.getValue();
@@ -208,7 +217,6 @@ class Register extends Component {
       return null;
     }
     var user_ID = null;
-    var space = " ";
     var user_full_name = value.fullName;
     var user_phone = value.phoneNumber;
     var user_email = value.email;
@@ -219,7 +227,8 @@ class Register extends Component {
     if(user_canHost) {
       user_LocationID = value.LocationToHost;
     }
-    /*
+
+    console.log(`${user_full_name}, ${user_phone}, ${user_email}, ${user_password}, ${user_canHost}, ${user_LocationID}`);
     fetch('https://threeforpong.herokuapp.com/api/signup/', {
        method: 'POST',
        headers: {
@@ -234,19 +243,26 @@ class Register extends Component {
          default_location_id: `${user_LocationID}`
        })
      })
-     .then((response) => response.json())
+     .then((response) => {
+     if (response.ok === true) {
+       response.json();
+     } else {
+       console.log("We have error");
+     }
+   }
+   )
      .then((responseData) => {
+        console.log(responseData);
         user_ID = responseData.user_id;
 
+        this.pushPinAuth(user_ID);
+
+     })
+     .catch((error) =>{
+       console.log(error);
      })
      .done();
-     */
 
-     this.props.navigator.push({
-      component: PinAuth,
-      title: 'Pin Authorization',
-      passProps: {user_id: user_ID}
-    });
    }
 
    render() {

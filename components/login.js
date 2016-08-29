@@ -13,10 +13,6 @@ const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 var Form = t.form.Form;
 
-var LoginInputs = t.refinement(t.String, function (n) {
-  return (n !== null);
-});
-
 var LoginForm = t.struct({
 
   email: t.String,  // an optional string
@@ -75,28 +71,23 @@ class Login extends Component {
 
    this._onPress = this._onPress.bind(this);
    this.authUser = this.authUser.bind(this);
-  //  this._onForward = this._onForward.bind(this);
  }
 
- // _onForward() {
- //   this.props.navigator.push({
- //     title: 'Dash',
- //     component: Dashboard
- //   });
- // }
-authUser() {
-  var user_id = this.state.user_id;
+authUser(user_id) {
   console.log(user_id);
   if (user_id == null) {
     console.log('lost');
     return null;
   }
 
+  this.setState({
+    user_id:user_id
+  });
   // this._onForward();
   this.props.navigator.push({
     title: 'Games',
     component: Dashboard,
-    // passProps: { user_id: user_id, navigator: this.props.navigator }
+    passProps: { user_id: user_id}
   });
 }
 
@@ -109,7 +100,7 @@ authUser() {
     var user_email = value.email;
     var user_password = value.password;
     var user_id = null;
-
+    var token = null;
 
    fetch('https://threeforpong.herokuapp.com/api/signin/', {
       method: 'POST',
@@ -124,18 +115,17 @@ authUser() {
     .then((response) => response.json())
     .then((responseData) => {
       user_id = responseData.user_id;
-
-      storage.save('token', responseData.token);
+      token = responseData.token;
+      console.log(`loving ${user_id} and ${token}`);
+      storage.save('token', token);
+      this.authUser(user_id);
     })
     .catch((error) =>{
+      this.authUser(user_id);
     })
 
-    console.log(`here with ${user_id}`);
-    this.setState({
-      user_id:user_id
-    });
 
-    this.authUser();
+
 
   }
 
