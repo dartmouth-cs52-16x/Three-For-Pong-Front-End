@@ -44,7 +44,7 @@ let options = {
     fullName: {
       keyboardType: 'email-address',
       autoCorrect: false,
-      autoCapitalize: 'none',
+      autoCapitalize: 'words',
       placeholderTextColor: 'white',
       clearButtonMode: 'while-editing',
       keyboardAppearance: 'dark',

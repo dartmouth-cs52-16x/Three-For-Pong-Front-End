@@ -139,7 +139,7 @@ _onSettingsButtonPress(){
         <Text style={styles.rowtext}>
         Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
         </Text>
-        <TouchableHighlight style={styles.joinButton} onPress={() => {
+        <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4' onPress={() => {
           var listing = data.listing_id;
           fetch(`https://threeforpong.herokuapp.com/api/listings/join/${listing}`, {
             method: 'POST',
@@ -190,7 +190,7 @@ _onSettingsButtonPress(){
         renderRow={this._renderRow}
       />
 
-      <TouchableHighlight onPress={this._onCreateButtonPress} style={styles.button}>
+      <TouchableHighlight onPress={this._onCreateButtonPress} style={styles.button} underlayColor='#99d9f4'>
         <Text style={styles.buttonText}>CREATE GAME</Text>
       </TouchableHighlight>
 
