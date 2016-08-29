@@ -163,7 +163,7 @@ authUser(user_id) {
   logo: {
     maxWidth: 150,
     maxHeight: 150,
-    marginTop: 100,
+    marginTop: 50,
     marginBottom: 60,
     alignSelf: 'center',
   },
