@@ -102,7 +102,10 @@ let options = {
       stylesheet: stylesheet,
       error:'Please confirm your password'
     },
-    Locations: {}
+    LocationToHost: {
+      selectionColor: '#f7f7f7',
+      nullOption: {value: '', text: 'Choose your location'}
+    }
   }
 
 
@@ -246,6 +249,7 @@ class Register extends Component {
        response.json();
      } else {
        console.log("We have error");
+       console.log(response);
      }
    }
    )
