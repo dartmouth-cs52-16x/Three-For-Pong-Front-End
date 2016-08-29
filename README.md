@@ -24,19 +24,25 @@
 
 The front end of Three for Pong was built using React Native. It is relatively simple, and can be broken down into seven components, as follows:
 
-- Start Up – upon starting up the app, users (if not logged in) are taken to a screen featuring the logo, on which they can either choose to register or log in.
+- **Start Up** – upon starting up the app, users (if not logged in) are taken to a screen featuring the logo, on which they can either choose to register or log in.
 ![startup](./images/readmestartup.png)
-- Register – the register component uses a specially-designed form (documentation can be found [here](https://github.com/gcanti/tcomb-form)). This form takes inputs for the user's full name, email address, phone number, password, password confirmation, and features a menu in which the user can select the location at which they are able to host games (if they've indicated they can host a game). On an error with any of the fields, the user will be prompted to input the correct type of information. The page validates proper phone numbers (no letters allowed) and email addresses (must be @dartmouth.edu, and must feature one of the four class numbers currently on campus: 17, 18, 19, or 20). Additionally, it checks to make sure the passwords match. Once all of the information is input and the user clicks 'register,' an email with a pin code will be sent to the email address provided.
+
+- **Register** – the register component uses a specially-designed form (documentation can be found [here](https://github.com/gcanti/tcomb-form)). This form takes inputs for the user's full name, email address, phone number, password, password confirmation, and features a menu in which the user can select the location at which they are able to host games (if they've indicated they can host a game). On an error with any of the fields, the user will be prompted to input the correct type of information. The page validates proper phone numbers (no letters allowed) and email addresses (must be @dartmouth.edu, and must feature one of the four class numbers currently on campus: 17, 18, 19, or 20). Additionally, it checks to make sure the passwords match. Once all of the information is input and the user clicks 'register,' an email with a pin code will be sent to the email address provided.
 ![register](./images/readmeregister.png)
-- Pin Authorization – on this page, the user is prompted to enter the pin that has been sent to their email. The page validates the pin, and once it has determined it to be correct, leads to the page where the user can view available games.
+
+- **Pin Authorization** – on this page, the user is prompted to enter the pin that has been sent to their email. The page validates the pin, and once it has determined it to be correct, leads to the page where the user can view available games.
 ![pinauth](./images/readmepinauth.png)
-- Login – the user is prompted to input their Dartmouth email address and password. If the credentials are input incorrectly, the user will see an error message telling them to input Dartmouth email and password. Once the correct credentials are input and the user hits 'login,' they are taken to the available games page.
+
+- **Login** – the user is prompted to input their Dartmouth email address and password. If the credentials are input incorrectly, the user will see an error message telling them to input Dartmouth email and password. Once the correct credentials are input and the user hits 'login,' they are taken to the available games page.
 ![startup](./images/readmelogin.png)
-- Dashboard – the dashboard is where the user sees all of the available games that have been created but not filled. The games appear in a scrollable format, with the form "Need **[number]** at **[location]** at **[time]**". They also each feature a **+** button, which, on clicking, adds the user to that game and decrements the number of people needed. When the number reaches 0, the game will disappear from the dashboard. From the dashboard, the user can click 'create game' to get to the game creation component, or 'settings' to access and change their settings.
+
+- **Dashboard** – the dashboard is where the user sees all of the available games that have been created but not filled. The games appear in a scrollable format, with the form "Need **[number]** at **[location]** at **[time]**". They also each feature a **+** button, which, on clicking, adds the user to that game and decrements the number of people needed. When the number reaches 0, the game will disappear from the dashboard. From the dashboard, the user can click 'create game' to get to the game creation component, or 'settings' to access and change their settings.
 ![dashboard](./images/readmedashboard.png)
-- Settings – here, the user can change their phone number, the default location they set on registering, and their password.
+
+- **Settings** – here, the user can change their phone number, the default location they set on registering, and their password.
 ![settings](./images/readmesettings.png)
-- Create Game – in this component, the user can choose how many players they need for their game. Also, using an iPhone date-scroll bar, the user can choose when they'd like their game to happen. To get a location, the app defaults to the default location the user provided when they registered. Once the game is created, it will show up on the dashboard in the aforementioned format.
+
+- **Create Game** – in this component, the user can choose how many players they need for their game. Also, using an iPhone date-scroll bar, the user can choose when they'd like their game to happen. To get a location, the app defaults to the default location the user provided when they registered. Once the game is created, it will show up on the dashboard in the aforementioned format.
 ![creategame](./images/readmecreategame.png)
 
 ### Back End
