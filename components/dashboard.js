@@ -28,6 +28,7 @@ class Dashboard extends Component {
       user_info: null,
       db: [],
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
+      in_game: 1
     };
     this._onCreateButtonPress = this._onCreateButtonPress.bind(this);
     this._renderRow=this._renderRow.bind(this);
@@ -101,6 +102,7 @@ _onSettingsButtonPress(){
   });
 }
   _renderRow(data, sectionID, rowID) {
+    if (this.state.in_game === 1) {
     return (
       <View style={styles.row}>
         <Text style={styles.rowtext}>
@@ -128,7 +130,8 @@ _onSettingsButtonPress(){
             const newsource = this.state.dataSource.cloneWithRows(newDB);
             this.setState({
               db: newDB,
-              dataSource: newsource
+              dataSource: newsource,
+              in_game: 0
             });
           })
           .done();
@@ -137,6 +140,45 @@ _onSettingsButtonPress(){
         </TouchableHighlight>
       </View>
     )
+  } else {
+    return (
+      <View style={styles.row}>
+        <Text style={styles.rowtext}>
+        Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
+        </Text>
+        <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4' onPress={() => {
+          var listing = data.listing_id;
+          fetch(`https://threeforpong.herokuapp.com/api/listings/leave/${listing}`, {
+            method: 'POST',
+            headers: {
+              'Authorization': this.state.token,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              user_id: this.state.user_id
+            })
+          })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log(responseData);
+            var new_num_needed = (this.state.db[rowID].num_still_needed_for_game +1);
+            var newDB = [...this.state.db];
+            newDB[rowID] = {...newDB[rowID], num_still_needed_for_game: new_num_needed};
+            console.log(newDB[rowID].num_still_needed_for_game);
+            const newsource = this.state.dataSource.cloneWithRows(newDB);
+            this.setState({
+              db: newDB,
+              dataSource: newsource,
+              in_game: 1
+            });
+          })
+          .done();
+        }}>
+          <Text style={styles.joinButtonText}>Leave</Text>
+        </TouchableHighlight>
+      </View>
+    )
+  }
   }
   render() {
     return (
