@@ -15,6 +15,16 @@ var Form = t.form.Form;
 
 let token = storage.get('token');
 
+let date = new Date();
+let min_date = date;
+let temp = new Date;
+temp.setDate(temp.getDate() + 1);
+let max_date = temp;
+let curr_month = date.getMonth();
+
+console.log(min_date);
+console.log(max_date);
+
 var Positive = t.refinement(t.Number, function (n) {
   return ((n >= 1) && (n<=3));
 });
@@ -55,16 +65,9 @@ var options = {
       stylesheet: stylesheet,
     },
     At: {
-      keyboardType: 'default',
-      autoCorrect: false,
-      autoCapitalize: 'none',
-      placeholderTextColor: 'white',
-      clearButtonMode: 'while-editing',
-      keyboardAppearance: 'dark',
-      selectionColor: '#88C425',
-      returnKeyType: 'next',
-      autoCapitalize: 'none',
       stylesheet: stylesheet,
+      minimumDate: min_date,
+      maximumDate: max_date,
     }
   }
 };
