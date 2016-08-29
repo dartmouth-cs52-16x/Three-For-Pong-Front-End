@@ -86,11 +86,11 @@ class Startup extends Component {
 
       <Image source={require('./3forponglogo.png')} style={styles.logo} />
 
-       <TouchableHighlight onPress={this._onLoginForward} style={styles.Loginbutton}>
+       <TouchableHighlight onPress={this._onLoginForward} style={styles.Loginbutton} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>LOGIN</Text>
        </TouchableHighlight>
 
-       <TouchableHighlight onPress={this._onRegisterForward} style={styles.Registerbutton}>
+       <TouchableHighlight onPress={this._onRegisterForward} style={styles.Registerbutton} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>REGISTER</Text>
        </TouchableHighlight>
       </View>

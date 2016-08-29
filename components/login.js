@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Navigator, Dimensions, AppRegistry, View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import { Navigator, Dimensions, AppRegistry, View, Text, StyleSheet, ScrollView, Image, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
 import _ from 'lodash';
 import Register from './register.js';
@@ -40,8 +40,7 @@ var options = {
       selectionColor: '#88C425',
       returnKeyType: 'go',
       stylesheet: stylesheet,
-      error: 'Please insert a valid password'
-
+      error: 'Please insert a valid password',
     },
     email: {
       keyboardType: 'email-address',
@@ -54,7 +53,7 @@ var options = {
       returnKeyType: 'next',
       autoCapitalize: 'none',
       stylesheet: stylesheet,
-      error: 'Please Insert a valid Dartmouth email'
+      error: 'Please insert a valid Dartmouth email address'
     },
   },
 }
@@ -132,6 +131,8 @@ authUser(user_id) {
     return (
       <View style={styles.container}>
 
+      <ScrollView style={styles.scroll}>
+
       <Image source={require('../3forponglogo.png')} style={styles.logo} />
 
         {/* display */}
@@ -141,6 +142,8 @@ authUser(user_id) {
           options={options}
           style={styles.title}
         />
+
+      </ScrollView>
         <TouchableHighlight style={styles.button} onPress={this._onPress} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableHighlight>
@@ -159,9 +162,13 @@ authUser(user_id) {
   logo: {
     maxWidth: 150,
     maxHeight: 150,
-    marginTop: 300,
+    marginTop: 100,
     marginBottom: 60,
     alignSelf: 'center',
+  },
+  scroll: {
+    flex: 1,
+    marginBottom: -370,
   },
   title: {
     fontSize: 30,
@@ -184,8 +191,7 @@ authUser(user_id) {
     paddingBottom: 25,
     width: Dimensions.get('window').width,
     marginLeft: -20,
-    marginTop: 200,
-    marginBottom: -140,
+    marginBottom: -20,
   }
   });
 

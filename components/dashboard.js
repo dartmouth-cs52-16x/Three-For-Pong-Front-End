@@ -23,11 +23,12 @@ class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      token: token._65,
+      token: `${token._65}`,
       user_id: this.props.user_id,
       user_info: null,
       db: [],
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
+      in_game: 1
     };
     this._onCreateButtonPress = this._onCreateButtonPress.bind(this);
     this._renderRow=this._renderRow.bind(this);
@@ -66,7 +67,7 @@ class Dashboard extends Component {
     fetch('https://threeforpong.herokuapp.com/api/listings/', {
       method: 'GET',
       headers: {
-        'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk'
+        'Authorization': this.state.token
       }
     })
     .then((response) => response.json())
@@ -79,39 +80,6 @@ class Dashboard extends Component {
         dataSource: this.state.dataSource.cloneWithRows(this.state.db)
       })
     })
-  }
-  _onPressButtonGet() {
-    fetch('https://threeforpong.herokuapp.com/api/listings/', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        host_user_id: '57ba14d6e9dfd5220019f381',
-        num_looking_for_game: '3',
-        location_id: '57ba112be9dfd5220019f380',
-        start_time: 'August 10, 2015 10:00 pm'
-      })
-    })
-    .then((response) => response.json())
-    .then((responseData) => {
-      console.log(responseData)
-    })
-    .done();
-    fetch('https://threeforpong.herokuapp.com/api/listings/', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk'
-      }
-    })
-    .then((response) => response.json())
-    .then((responseData) => {
-       AlertIOS.alert(
-         "hi " + `${responseData.length}`
-       )
-    })
-    .done();
   }
 
   _onCreateButtonPress(){
@@ -136,21 +104,22 @@ _onSettingsButtonPress(){
   });
 }
   _renderRow(data, sectionID, rowID) {
+    if (this.state.in_game === 1) {
     return (
       <View style={styles.row}>
         <Text style={styles.rowtext}>
         Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
         </Text>
-        <TouchableHighlight style={styles.joinButton} onPress={() => {
+        <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4' onPress={() => {
           var listing = data.listing_id;
           fetch(`https://threeforpong.herokuapp.com/api/listings/join/${listing}`, {
             method: 'POST',
             headers: {
-              'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2JhMTRkNmU5ZGZkNTIyMDAxOWYzODEiLCJpYXQiOjE0NzE4MTI5MDc0MTF9.F0l31Wl4rBIfDtQrZq1gWuDE992kV6HUn3XJDIw89Sk',
+              'Authorization': this.state.token,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              user_id: '57ba14d6e9dfd5220019f381'
+              user_id: this.state.user_id
             })
           })
           .then((response) => response.json())
@@ -163,7 +132,8 @@ _onSettingsButtonPress(){
             const newsource = this.state.dataSource.cloneWithRows(newDB);
             this.setState({
               db: newDB,
-              dataSource: newsource
+              dataSource: newsource,
+              in_game: 0
             });
           })
           .done();
@@ -172,6 +142,45 @@ _onSettingsButtonPress(){
         </TouchableHighlight>
       </View>
     )
+  } else {
+    return (
+      <View style={styles.row}>
+        <Text style={styles.rowtext}>
+        Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
+        </Text>
+        <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4' onPress={() => {
+          var listing = data.listing_id;
+          fetch(`https://threeforpong.herokuapp.com/api/listings/leave/${listing}`, {
+            method: 'POST',
+            headers: {
+              'Authorization': this.state.token,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              user_id: this.state.user_id
+            })
+          })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log(responseData);
+            var new_num_needed = (this.state.db[rowID].num_still_needed_for_game +1);
+            var newDB = [...this.state.db];
+            newDB[rowID] = {...newDB[rowID], num_still_needed_for_game: new_num_needed};
+            console.log(newDB[rowID].num_still_needed_for_game);
+            const newsource = this.state.dataSource.cloneWithRows(newDB);
+            this.setState({
+              db: newDB,
+              dataSource: newsource,
+              in_game: 1
+            });
+          })
+          .done();
+        }}>
+          <Text style={styles.joinButtonText}>Leave</Text>
+        </TouchableHighlight>
+      </View>
+    )
+  }
   }
   render() {
     return (
@@ -192,7 +201,7 @@ _onSettingsButtonPress(){
         renderRow={this._renderRow}
       />
 
-      <TouchableHighlight onPress={this._onCreateButtonPress} style={styles.button}>
+      <TouchableHighlight onPress={this._onCreateButtonPress} style={styles.button} underlayColor='#99d9f4'>
         <Text style={styles.buttonText}>CREATE GAME</Text>
       </TouchableHighlight>
 

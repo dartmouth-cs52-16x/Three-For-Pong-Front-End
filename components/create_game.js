@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Dimensions, AppRegistry, View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import { Dimensions, AppRegistry, View, Text, StyleSheet, Image, ScrollView, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
 import _ from 'lodash';
 import Register from './register.js';
@@ -124,7 +124,7 @@ class CreateGame extends Component {
  render() {
    return (
      <View style={styles.container}>
-
+    <ScrollView style={styles.scroll}>
      <Image source={require('../3forponglogo.png')} style={styles.logo} />
 
        {/* display */}
@@ -135,6 +135,9 @@ class CreateGame extends Component {
          style={styles.title}
          context={{locale: 'it-IT'}}
        />
+
+      </ScrollView>
+
        <TouchableHighlight style={styles.button} onPress={this._onPress} underlayColor='#99d9f4'>
          <Text style={styles.buttonText}>CREATE</Text>
        </TouchableHighlight>
@@ -153,7 +156,7 @@ class CreateGame extends Component {
  logo: {
    maxWidth: 150,
    maxHeight: 150,
-   marginTop: 200,
+   marginTop: 100,
    marginBottom: 40,
    alignSelf: 'center',
  },
@@ -164,6 +167,10 @@ class CreateGame extends Component {
    marginTop: 200,
    color: 'white',
    backgroundColor: 'white',
+ },
+ scroll: {
+   flex: 1,
+   marginBottom: -370,
  },
  buttonText: {
    fontSize: 24,
@@ -178,8 +185,7 @@ class CreateGame extends Component {
    paddingBottom: 25,
    width: Dimensions.get('window').width,
    marginLeft: -20,
-   marginTop: 105,
-   marginBottom: -230,
+   marginBottom: -20,
  }
  });
 
