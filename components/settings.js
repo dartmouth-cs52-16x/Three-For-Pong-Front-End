@@ -137,12 +137,24 @@ class Settings extends Component {
         <View style={styles.container}>
 
           <Image source={require('../3forponglogo.png')} style={styles.logo} />
+
+          <Text style={styles.titletext}>Settings</Text>
           {/* display */}
           <ScrollView style={styles.scroll}>
           <TouchableHighlight style={styles.joinButton}>
+
           <Text style={styles.rowtext}>
             Password     >
           </Text>
+          <Text style={styles.rowtextleft}>Phone Number</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={styles.joinButton}>
+          <Text style={styles.rowtextleft}>Password</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={styles.joinButton}>
+          <Text style={styles.rowtextleft}>Host Location</Text>
           </TouchableHighlight>
 
           <Form
@@ -169,7 +181,8 @@ const styles = StyleSheet.create({
   logo: {
     maxWidth: 100,
     maxHeight: 100,
-    marginBottom: 10,
+    marginBottom: 20,
+    marginTop: 20,
     alignSelf: 'center',
   },
   scroll: {
@@ -200,22 +213,23 @@ const styles = StyleSheet.create({
     color: '#363636',
     marginLeft: -20,
   },
-  buttonText: {
-    fontSize: 24,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#88C425',
-    paddingTop: 25,
-    paddingBottom: 25,
+  rowtextleft: {
+    fontSize: 14,
+    color: '#363636',
+    borderWidth: 1,
+    borderColor: '#cccccc',
     width: Dimensions.get('window').width,
+    padding: 8,
+  },
+  titletext: {
+    fontSize: 30,
+    color: 'white',
+    marginBottom: 20,
   },
   joinButton: {
     justifyContent: 'center',
     alignItems: 'center',
+
     backgroundColor: 'white'
   },
   joinButtonText: {
@@ -223,6 +237,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#1B676B',
     alignSelf: 'center'
+    backgroundColor: 'white',
+
   }
 });
 

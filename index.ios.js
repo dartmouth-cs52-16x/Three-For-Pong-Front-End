@@ -46,7 +46,7 @@ class ThreeForPong extends Component {
           title: '',
         }}
         style={{flex: 1}}
-      navigationBarHidden={true} />
+      navigationBarHidden={false} />
     );
   }
 }

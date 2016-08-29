@@ -149,6 +149,8 @@ _onSettingsButtonPress(){
         <Text style={styles.settingsButtonText}>settings</Text>
       </TouchableHighlight>
 
+      <Text style={styles.nontext}></Text>
+
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this._renderRow}
@@ -168,7 +170,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f0f0f0',
-    marginTop: 40,
+    marginTop: 100,
   },
   row: {
     backgroundColor: 'white',
@@ -202,6 +204,9 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     width: Dimensions.get('window').width,
   },
+  nontext: {
+    marginBottom: -15,
+  },
   joinButton: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -227,7 +232,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: '#1B676B',
-    paddingTop: 45,
+    paddingTop: 35,
     paddingBottom: 25,
     width: Dimensions.get('window').width,
     marginTop: -40,
