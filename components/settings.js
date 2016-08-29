@@ -20,39 +20,54 @@ import _ from 'lodash';
 
 let Form = t.form.Form;
 
-// here we are: define your domain model
-
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 // Potential items a user can edit
 var Person = t.struct({
-
-  phoneNumber: t.Number,
-  password: t.String,               // a required number
-  canHost: t.Boolean // Boolean
-
+  // Boolean
+  phoneNumber: t.Number,  // a required number
+  canHost: t.Boolean
 });
 
 class Settings extends Component {
   constructor(props){
    super(props);
    this.state = {
-      dict: {},
+      location_dict: {},
       value: {},
       type: Person,
       //user_id: this.props.user_id,
       phone: 555,
       password: null,
-      location: null,
+      location_name: null,
+      location_id: null,
       can_host:null
       //navigator: this.props.navigator
     };
   }
 
   componentWillMount() {
-    this.loadUserData();
+    this.buildLocations();
   }
 
+  buildLocations() {
+    var temp_dict = {};
+    fetch('https://threeforpong.herokuapp.com/api/locations/', {
+      method: 'GET'
+    })
+
+    .then((response) => response.json())
+    .then((responseData) => {
+
+      for(var i = 0; i < responseData.length; i++) {
+        temp_dict[responseData[i].location_id] = responseData[i].location_name
+      }
+
+    })
+
+    this.setState({location_dict: temp_dict});
+    this.loadUserData();
+  }
 
   loadUserData() {
 
@@ -67,12 +82,53 @@ class Settings extends Component {
       this.setState({
         phone: responseData.phone,
         can_host: responseData.can_host,
-        location_name: responseData.default_location.location_name
+
       });
+
+      if (this.state.can_host){
+        this.setState({
+        location_name: responseData.default_location.location_name,
+        location_id: responseData.default_location._id
+       });
+
+      }
 
     )}
     */
     console.log('what');
+
+    this.updateSettingsPage();
+
+    }
+
+    updateSettingsPage() {
+      if (this.state.canHost) {
+        var LocationList = t.enums(location_dict, 'LocationList');
+        var foo = t.struct({
+          phoneNumber: t.Number,
+          canHost: t.Boolean, // Boolean
+          LocationToHost: LocationList
+
+        });
+
+        var temp_val = {
+          phoneNumber: this.state.phone,
+          canHost: this.state.canHost,
+          LocationToHost: this.state.location_id
+        };
+
+        this.setState({type: foo, value:temp_val});
+      }
+
+      else {
+        var temp_val = {
+          phoneNumber: this.state.phone,
+          canHost: this.state.canHost
+        };
+
+        this.setState({value: temp_val});
+
+      }
     }
 
     render() {
@@ -82,22 +138,22 @@ class Settings extends Component {
 
           <Image source={require('../3forponglogo.png')} style={styles.logo} />
           {/* display */}
+          <ScrollView style={styles.scroll}>
           <TouchableHighlight style={styles.joinButton}>
           <Text style={styles.rowtext}>
-            Phone     {this.state.phone} >
-          </Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtext}>
-            Change Password >
-          </Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtext}>
-            Host Location >
+            Password     >
           </Text>
           </TouchableHighlight>
 
+          <Form
+            ref="form"
+            type={this.state.type}
+            //options={this.state.options}
+            value={this.state.value}
+            style={styles.title}
+            //onChange={this.onChange}
+          />
+          </ScrollView>
         </View>
       );
     }
@@ -107,7 +163,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    alignItems: 'center',
     padding: 20,
     backgroundColor: '#1B676B',
   },
@@ -116,6 +171,16 @@ const styles = StyleSheet.create({
     maxHeight: 100,
     marginBottom: 10,
     alignSelf: 'center',
+  },
+  scroll: {
+    flex: 1,
+    marginBottom: -370,
+  },
+  title: {
+    fontSize: 30,
+    alignSelf: 'center',
+    marginBottom: 30,
+    color: 'white',
   },
   row: {
     backgroundColor: 'white',
@@ -134,9 +199,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#363636',
     marginLeft: -20,
-    marginBottom: -7,
-    borderWidth: 1,
-    borderColor: '#cccccc',
   },
   buttonText: {
     fontSize: 24,
@@ -155,8 +217,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white'
-
-
   },
   joinButtonText: {
     fontSize: 16,

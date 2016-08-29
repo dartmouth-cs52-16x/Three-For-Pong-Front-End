@@ -6,7 +6,7 @@ import t from 'tcomb-form-native';
 import _ from 'lodash';
 import Register from './register.js';
 import Dashboard from './dashboard.js';
-// import storage from 'react-native-simple-store';
+import storage from 'react-native-simple-store';
 
 // clone the default stylesheet
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
@@ -69,10 +69,12 @@ class Login extends Component {
    super(props);
 
    this.state = {
+     user_id: null,
      navigator: this.props.navigator
    };
 
    this._onPress = this._onPress.bind(this);
+   this.authUser = this.authUser.bind(this);
   //  this._onForward = this._onForward.bind(this);
  }
 
@@ -82,6 +84,21 @@ class Login extends Component {
  //     component: Dashboard
  //   });
  // }
+authUser() {
+  var user_id = this.state.user_id;
+  console.log(user_id);
+  if (user_id == null) {
+    console.log('lost');
+    return null;
+  }
+
+  // this._onForward();
+  this.props.navigator.push({
+    title: 'Games',
+    component: Dashboard,
+    // passProps: { user_id: user_id, navigator: this.props.navigator }
+  });
+}
 
   _onPress() {
     var value = this.refs.form.getValue();
@@ -91,9 +108,9 @@ class Login extends Component {
     }
     var user_email = value.email;
     var user_password = value.password;
+    var user_id = null;
 
-    console.log(value);
-    /*
+
    fetch('https://threeforpong.herokuapp.com/api/signin/', {
       method: 'POST',
       headers: {
@@ -106,25 +123,20 @@ class Login extends Component {
     })
     .then((response) => response.json())
     .then((responseData) => {
-      var user_id = responseData.user_id;
-      var token = responseData.token;
-      console.log(user_id);
-      console.log(token);
-    })
-    .done();
-<<<<<<< HEAD
+      user_id = responseData.user_id;
 
-    this.props.navigator.push({
-     component: Register,
-     title: 'Genius'
-   });
-   */
-    // this._onForward();
-    this.props.navigator.push({
-      title: 'Games',
-      component: Dashboard,
-      // passProps: { user_id: user_id, navigator: this.props.navigator }
+      storage.save('token', responseData.token);
+    })
+    .catch((error) =>{
+    })
+
+    console.log(`here with ${user_id}`);
+    this.setState({
+      user_id:user_id
     });
+
+    this.authUser();
+
   }
 
   render() {
