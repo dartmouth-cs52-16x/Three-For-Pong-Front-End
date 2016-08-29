@@ -229,15 +229,14 @@ const styles = StyleSheet.create({
   joinButton: {
     justifyContent: 'center',
     alignItems: 'center',
-
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   joinButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#1B676B',
     alignSelf: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   }
 });
 

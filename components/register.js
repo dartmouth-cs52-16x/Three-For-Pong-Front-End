@@ -207,7 +207,7 @@ class Register extends Component {
   pushPinAuth(user_id) {
     this.props.navigator.push({
      component: PinAuth,
-     title: 'Pin Authorization',
+     title: 'Pin Entry',
      passProps: {user_id: user_id}
    });
   }
