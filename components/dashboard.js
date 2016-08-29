@@ -44,7 +44,8 @@ class Dashboard extends Component {
     .then((response) => response.json())
     .then((responseData) => {
       user_info = responseData;
-    }
+    })
+  }
 
   _fetchListings() {
     fetch('https://threeforpong.herokuapp.com/api/listings/', {
