@@ -243,7 +243,14 @@ class Register extends Component {
          default_location_id: `${user_LocationID}`
        })
      })
-     .then((response) => response.json())
+     .then((response) => {
+     if (response.ok === true) {
+       response.json();
+     } else {
+       console.log("We have error");
+     }
+   }
+   )
      .then((responseData) => {
         console.log(responseData);
         user_ID = responseData.user_id;
