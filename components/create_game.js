@@ -22,9 +22,6 @@ temp.setDate(temp.getDate() + 1);
 let max_date = temp;
 let curr_month = date.getMonth();
 
-console.log(min_date);
-console.log(max_date);
-
 var Positive = t.refinement(t.Number, function (n) {
   return ((n >= 1) && (n<=3));
 });
@@ -119,7 +116,7 @@ class CreateGame extends Component {
      this.props.navigator.push({
        title: 'Games',
        component: Dashboard,
-       passProps: { navigator: this.props.navigator }
+       passProps: { user_id : this.state.user_id }
      });
    }
 

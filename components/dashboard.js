@@ -127,10 +127,12 @@ class Dashboard extends Component {
       passProps: {user_id: this.state.user_id, user_info: this.state.user_info}
     });
   }
+
 _onSettingsButtonPress(){
   this.props.navigator.push({
     title: 'Settings',
-    component: Settings
+    component: Settings,
+    passProps: {user_id: this.state.user_id, user_info: this.state.user_info}
   });
 }
   _renderRow(data, sectionID, rowID) {
