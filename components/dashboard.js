@@ -37,6 +37,8 @@ class Dashboard extends Component {
 
   buildUserInfo () {
     var user_info = {};
+    var user_id = this.state.user_id;
+    console.log(`user id: ${user_id}`);
     fetch(`https://threeforpong.herokuapp.com/api/users/${user_id}`, {
       method: 'GET'
     })
@@ -44,8 +46,13 @@ class Dashboard extends Component {
     .then((response) => response.json())
     .then((responseData) => {
       user_info = responseData;
+      this.setState({ user_info: user_info });
+      console.log(responseData);
     })
-  }
+    .catch((error) =>{
+      console.log(error);
+    })
+}
 
   _fetchListings() {
     fetch('https://threeforpong.herokuapp.com/api/listings/', {
@@ -63,8 +70,6 @@ class Dashboard extends Component {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(this.state.db)
       })
-      console.log('new one');
-      console.log(this.state.dataSource);
     })
   }
   _onPressButtonGet() {

@@ -116,7 +116,6 @@ authUser(user_id) {
     .then((responseData) => {
       user_id = responseData.user_id;
       token = responseData.token;
-      console.log(`loving ${user_id} and ${token}`);
       storage.save('token', token);
       this.authUser(user_id);
     })

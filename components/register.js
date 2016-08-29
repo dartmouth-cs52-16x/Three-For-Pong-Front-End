@@ -180,7 +180,6 @@ class Register extends Component {
 
       this.getType(dict);
 
-      //const LocationList = t.enums.of([data_string], 'LocationList');
 
     })
 
@@ -199,7 +198,6 @@ class Register extends Component {
 
     });
     this.setState({type:foo, dict:location_dict});
-
 
   }
 
