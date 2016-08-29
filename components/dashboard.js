@@ -20,6 +20,7 @@ class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
+      user_id: this.props.user_id,
       user_info: null,
       db: [],
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
@@ -31,7 +32,19 @@ class Dashboard extends Component {
 
   componentWillMount() {
     this._fetchListings();
+    this.buildUserInfo();
   }
+
+  buildUserInfo () {
+    var user_info = {};
+    fetch(`https://threeforpong.herokuapp.com/api/users/${user_id}`, {
+      method: 'GET'
+    })
+
+    .then((response) => response.json())
+    .then((responseData) => {
+      user_info = responseData;
+    }
 
   _fetchListings() {
     fetch('https://threeforpong.herokuapp.com/api/listings/', {
