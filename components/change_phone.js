@@ -27,7 +27,14 @@ var Person = t.struct({
   phoneNumber: t.Number
 });
 
-var options = {}; // optional rendering options (see documentation)
+var options = {
+  auto: 'placeholders',
+  fields: {
+    phoneNumber: {
+      color: 'white',
+    },
+  }
+}; // optional rendering options (see documentation)
 
 
 var values = {};
@@ -42,7 +49,7 @@ class changePhone extends Component {
       value: values,
       options: options,
       token:`${token._65}`,
-      buttonText:"RETURN TO SETTINGS",
+      buttonText:"BACK TO SETTINGS",
       type: Person
     };
 
@@ -53,7 +60,7 @@ class changePhone extends Component {
 
 
   onChange(value) {
-      this.setState({ value: value, buttonText:"UPDATE PHONE", options: options});
+      this.setState({ value: value, buttonText:"SAVE AND RETURN", options: options});
   }
 
 

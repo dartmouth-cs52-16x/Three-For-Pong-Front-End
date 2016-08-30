@@ -131,7 +131,7 @@ _onSettingsButtonPress(){
 }
   _renderRow(data, sectionID, rowID) {
     console.log(data.users);
-    if (this.state.user_id === data.host_user._id) {
+    if (this.state.user_id === data.host_user_id) {
       return (
         <View style={styles.row}>
           <Text style={styles.rowtext}>
@@ -267,8 +267,6 @@ _onSettingsButtonPress(){
         <Text style={styles.settingsButtonText}>settings</Text>
       </TouchableHighlight>
 
-      <Text style={styles.nontext}>pong === life</Text>
-
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this._renderRow}
@@ -328,12 +326,6 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     width: Dimensions.get('window').width,
   },
-  nontext: {
-    marginBottom: -20,
-    color: 'gray',
-    fontSize: 16,
-    fontFamily: 'Courier',
-  },
   joinButton: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -373,7 +365,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   settingsButton: {
-    marginBottom: 25,
+    marginBottom: 20,
     marginTop: -50,
     marginLeft: 270,
     borderRadius: 5,

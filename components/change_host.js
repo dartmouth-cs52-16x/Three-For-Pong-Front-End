@@ -30,7 +30,7 @@ var options = {
   auto: 'placeholders',
   fields: {
     LocationToHost: {
-      selectionColor: '#f7f7f7',
+      selectionColor: 'white',
       error:'Please choose a valid location',
       nullOption: {value: '', text: 'Choose your location'}
     },
@@ -53,7 +53,7 @@ class changeHost extends Component {
       value: values,
       options: {},
       token:`${token._65}`,
-      buttonText:"RETURN TO SETTINGS",
+      buttonText:"BACK TO SETTINGS",
       type: Person
     };
 
@@ -120,7 +120,7 @@ class changeHost extends Component {
 
         this.setState({type: foo});
       }
-      this.setState({type: foo, value: value, buttonText:"UPDATE HOSTING", options: options});
+      this.setState({type: foo, value: value, buttonText:"SAVE AND RETURN", options: options});
   }
 
 

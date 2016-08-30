@@ -57,7 +57,7 @@ class changePassword extends Component {
       value: values,
       options: options,
       token:`${token._65}`,
-      buttonText:"RETURN TO SETTINGS",
+      buttonText:"BACK TO SETTINGS",
       type: Person
     };
 
@@ -68,7 +68,7 @@ class changePassword extends Component {
 
 
   onChange(value) {
-      this.setState({ value: value, buttonText:"UPDATE PASSWORD", options: options});
+      this.setState({ value: value, buttonText:"SAVE AND RETURN", options: options});
   }
 
 

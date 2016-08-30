@@ -128,6 +128,7 @@ class CreateGame extends Component {
     <ScrollView style={styles.scroll}>
      <Image source={require('../3forponglogo.png')} style={styles.logo} />
 
+      <Text style={styles.hint}>Hint: click the date to select a new time!</Text>
        {/* display */}
        <Form
          ref="form"
@@ -157,7 +158,7 @@ class CreateGame extends Component {
  logo: {
    maxWidth: 150,
    maxHeight: 150,
-   marginTop: 100,
+   marginTop: 10,
    marginBottom: 40,
    alignSelf: 'center',
  },
@@ -168,6 +169,14 @@ class CreateGame extends Component {
    marginTop: 200,
    color: 'white',
    backgroundColor: 'white',
+ },
+ hint: {
+   color: 'white',
+   fontSize: 14,
+   marginTop: -20,
+   marginBottom: 20,
+   alignSelf: 'center',
+   fontStyle: 'italic',
  },
  scroll: {
    flex: 1,
