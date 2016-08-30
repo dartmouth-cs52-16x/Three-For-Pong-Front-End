@@ -75,7 +75,7 @@ class Settings extends Component {
           LocationToHost: LocationList
 
         });
-
+        console.log(this.state.user_info.canHost);
         var temp_val = {
           phoneNumber: this.state.user_info.phone,
           canHost: this.state.user_info.canHost,
@@ -88,7 +88,7 @@ class Settings extends Component {
       else {
         var temp_val = {
           phoneNumber: this.state.user_info.phone,
-          canHost: this.state.user_info.phone
+          canHost: this.state.user_info.canHost
         };
 
         this.setState({value: temp_val});
@@ -112,6 +112,9 @@ class Settings extends Component {
           <Text style={styles.rowtext}>
             Password     >
           </Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={styles.joinButton}>
           <Text style={styles.rowtextleft}>Phone Number</Text>
           </TouchableHighlight>
 

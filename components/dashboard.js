@@ -25,7 +25,7 @@ class Dashboard extends Component {
     this.state = {
       token: `${token._65}`,
       user_id: this.props.user_id,
-      user_info: null,
+      user_info: {},
       db: [],
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
       in_game: 1
