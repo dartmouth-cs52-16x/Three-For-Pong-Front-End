@@ -13,10 +13,10 @@ import {
 import PinAuth from './pin_auth';
 import t from 'tcomb-form-native';
 import _ from 'lodash';
-// import storage from 'react-native-simple-store';
+import storage from 'react-native-simple-store';
 
 // var serverURL = require('./env');
-// let token = storage.get('token');
+let token = storage.get('token');
 
 let Form = t.form.Form;
 
@@ -33,16 +33,11 @@ class Settings extends Component {
   constructor(props){
    super(props);
    this.state = {
+      user_id: this.props.user_id,
+      user_info: this.props.user_info,
       location_dict: {},
       value: {},
-      type: Person,
-      //user_id: this.props.user_id,
-      phone: 555,
-      password: null,
-      location_name: null,
-      location_id: null,
-      can_host:null
-      //navigator: this.props.navigator
+      type: Person
     };
   }
 
@@ -62,48 +57,18 @@ class Settings extends Component {
       for(var i = 0; i < responseData.length; i++) {
         temp_dict[responseData[i].location_id] = responseData[i].location_name
       }
+      this.updateSettingsPage(temp_dict);
 
     })
 
-    this.setState({location_dict: temp_dict});
-    this.loadUserData();
   }
 
-  loadUserData() {
 
-    /*
-    var user_id = this.state.user_id;
-    fetch(`https://threeforpong.herokuapp.com/api/users/${user_id}`, {
-      method: 'GET'
-    })
 
-    .then((response) => response.json())
-    .then((responseData) => {
-      this.setState({
-        phone: responseData.phone,
-        can_host: responseData.can_host,
-
-      });
-
-      if (this.state.can_host){
-        this.setState({
-        location_name: responseData.default_location.location_name,
-        location_id: responseData.default_location._id
-       });
-
-      }
-
-    )}
-    */
-    console.log('what');
-
-    this.updateSettingsPage();
-
-    }
-
-    updateSettingsPage() {
-      if (this.state.canHost) {
-        var LocationList = t.enums(location_dict, 'LocationList');
+    updateSettingsPage(dict) {
+      console.log(this.state.user_info);
+      if (this.state.user_info.canHost) {
+        var LocationList = t.enums(dict, 'LocationList');
         var foo = t.struct({
           phoneNumber: t.Number,
           canHost: t.Boolean, // Boolean
@@ -112,9 +77,9 @@ class Settings extends Component {
         });
 
         var temp_val = {
-          phoneNumber: this.state.phone,
-          canHost: this.state.canHost,
-          LocationToHost: this.state.location_id
+          phoneNumber: this.state.user_info.phone,
+          canHost: this.state.user_info.canHost,
+          LocationToHost: this.state.user_info.default_location._id
         };
 
         this.setState({type: foo, value:temp_val});
@@ -122,13 +87,14 @@ class Settings extends Component {
 
       else {
         var temp_val = {
-          phoneNumber: this.state.phone,
-          canHost: this.state.canHost
+          phoneNumber: this.state.user_info.phone,
+          canHost: this.state.user_info.phone
         };
 
         this.setState({value: temp_val});
 
       }
+      this.setState({location_dict: dict});
     }
 
     render() {

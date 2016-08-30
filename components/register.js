@@ -239,28 +239,19 @@ class Register extends Component {
          email: `${user_email}`,
          full_name: `${user_full_name}`,
          phone: `${user_phone}`,
-         can_host: `${user_canHost}`,
-         password: `${user_password}`,
-         default_location_id: `${user_LocationID}`
+         can_host: user_canHost,
+         password: `${user_password}`
        })
      })
-     .then((response) => {
-     if (response.ok === true) {
-       response.json();
-     } else {
-       console.log("We have error");
-       console.log(response);
-     }
-   }
-   )
+     .then((response) => response.json())
      .then((responseData) => {
-        console.log(responseData);
         user_ID = responseData.user_id;
-
+        console.log(responseData);
         this.pushPinAuth(user_ID);
 
      })
      .catch((error) =>{
+       console.log('woahh');
        console.log(error);
      })
      .done();

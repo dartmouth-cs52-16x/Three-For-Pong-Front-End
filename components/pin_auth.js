@@ -16,6 +16,8 @@ import {
 import _ from 'lodash';
 import Dashboard from './dashboard.js';
 import t from 'tcomb-form-native';
+import storage from 'react-native-simple-store';
+
 
 // clone the default stylesheet
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
@@ -74,7 +76,6 @@ class PinAuth extends Component {
     var pin = value.Pin;
     var user_id = this.state.user_id;
     var token = null;
-    /*
     fetch(`https://threeforpong.herokuapp.com/api/verify/${user_id}`, {
        method: 'POST',
        headers: {
@@ -88,16 +89,18 @@ class PinAuth extends Component {
      .then((responseData) => {
        user_id = responseData.user_id;
        token = responseData.token;
+       storage.save('token', token);
        console.log(user_id);
        console.log(token);
+
+       this.props.navigator.push({
+        title: 'All Games',
+        component: Dashboard,
+        passProps: {user_id:user_id}
+      });
+      
      })
      .done();
-     */
-    this.props.navigator.push({
-     title: 'All Games',
-     component: Dashboard,
-     passProps: {user_id:user_id}
-   });
   }
 
   render() {
