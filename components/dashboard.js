@@ -11,6 +11,7 @@ import {
   AlertIOS,
   Alert,
   ListView,
+  RefreshControl
 } from 'react-native';
 import moment from 'moment';
 import CreateGame from './create_game';
@@ -28,11 +29,13 @@ class Dashboard extends Component {
       user_info: null,
       db: [],
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
-      in_game: 1
+      in_game: 1,
+      refreshing: false
     };
     this._onCreateButtonPress = this._onCreateButtonPress.bind(this);
     this._renderRow=this._renderRow.bind(this);
     this._onSettingsButtonPress = this._onSettingsButtonPress.bind(this);
+    this._fetchListings = this._fetchListings.bind(this);
   }
 
   componentWillMount() {
@@ -62,7 +65,26 @@ class Dashboard extends Component {
       console.log('woah');
     })
 }
-
+_onRefresh() {
+  this.setState({refreshing: true});
+  fetch('https://threeforpong.herokuapp.com/api/listings/', {
+    method: 'GET',
+    headers: {
+      'Authorization': this.state.token
+    }
+  })
+  .then((response) => response.json())
+  .then((responseData) => {
+    // var data = [];
+    for(var i = 0; i < responseData.length; i++) {
+      this.state.db.push(responseData[i]);
+    }
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(this.state.db),
+      refreshing: false
+    })
+  })
+}
   _fetchListings() {
     fetch('https://threeforpong.herokuapp.com/api/listings/', {
       method: 'GET',
@@ -133,6 +155,7 @@ _onSettingsButtonPress(){
               dataSource: newsource,
               in_game: 0
             });
+            console.log(data.users);
           })
           .done();
         }}>
@@ -171,6 +194,7 @@ _onSettingsButtonPress(){
               dataSource: newsource,
               in_game: 1
             });
+            console.log(data.users);
           })
           .done();
         }}>
@@ -195,6 +219,12 @@ _onSettingsButtonPress(){
       <Text style={styles.nontext}>pong === life</Text>
 
       <ListView
+      refreshControl={
+        <RefreshControl
+          refreshing={this.state.refreshing}
+          onRefresh={this._onRefresh.bind(this)}
+        />
+      }
         dataSource={this.state.dataSource}
         renderRow={this._renderRow}
       />
