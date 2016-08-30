@@ -146,6 +146,10 @@ class Settings extends Component {
           <Text style={styles.rowtextleft}>Edit Hosting Information > </Text>
           </TouchableHighlight>
 
+          <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4'>
+          <Text style={styles.rowtextleft}>Log Out</Text>
+          </TouchableHighlight>
+
         </View>
       );
     }
