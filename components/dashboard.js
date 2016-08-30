@@ -263,7 +263,7 @@ _onSettingsButtonPress(){
       </TouchableHighlight>
 
 
-      <TouchableHighlight style={styles.settingsButton} onPress={this._onSettingsButtonPress}>
+      <TouchableHighlight style={styles.settingsButton} onPress={this._onSettingsButtonPress} underlayColor='#99d9f4'>
         <Text style={styles.settingsButtonText}>settings</Text>
       </TouchableHighlight>
 

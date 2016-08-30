@@ -138,6 +138,8 @@ class PinAuth extends Component {
 
       <Text style={styles.infoText}>Check your email for a {'\n'} pin and enter it here:</Text>
 
+      <Text style={styles.hint}>Hint: it may take a few minutes</Text>
+
       <Form
         ref="form"
         type={PinForm}
@@ -164,6 +166,13 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     color: 'white',
   },
+  hint: {
+    color: 'white',
+    fontSize: 14,
+    marginTop: 10,
+    alignSelf: 'center',
+    fontStyle: 'italic',
+  },
   buttonText: {
     fontSize: 24,
     color: 'white',
@@ -176,7 +185,7 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     paddingBottom: 25,
     width: Dimensions.get('window').width,
-    marginTop: 200,
+    marginTop: 175,
     marginBottom: -95,
   },
   infoText: {

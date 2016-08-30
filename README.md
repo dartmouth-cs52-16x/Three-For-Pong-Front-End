@@ -1,6 +1,6 @@
-# Three-For-Pong
+# Three For Pong
 
-3fp is a platform that allows students to find pong games anonymously. By connecting students, we will reduce pong wait times and foster potential friendships.
+Three for Pong is a platform that allows students to find pong games anonymously. By connecting students, we will reduce pong wait times and foster potential friendships.
 
 ## Site Map
 
@@ -69,7 +69,7 @@ To deploy the project, first go into the project folder (ThreeForPong in this ca
 react-native run-ios
 ```
 
-This will start an iPhone simulator, which can be updated with a simple cmd+R when you update a feature.
+This will start an iPhone simulator, which can be updated with a simple cmd+R when you update a feature. Or, hot reloading may be turned on.
 
 
 ## Authors
@@ -77,4 +77,4 @@ This will start an iPhone simulator, which can be updated with a simple cmd+R wh
 Devina Kumar, Virginia Cook, Jonathan Gonzalez, Henry Wilson, Matthew Goldstein
 
 ## Acknowledgments
-Starter code taken from React Native Workshop in class
+Starter code taken from React Native Workshop in class. Whichever forms we featured on the app were variations on an oft-used Github React Native form (https://github.com/gcanti/tcomb-form).
