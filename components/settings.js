@@ -107,23 +107,11 @@ class Settings extends Component {
           <Text style={styles.titletext}>Settings</Text>
           {/* display */}
           <ScrollView style={styles.scroll}>
-          <TouchableHighlight style={styles.joinButton}>
 
-          <Text style={styles.rowtext}>
+          <TouchableHighlight style={styles.joinButton}>
+          <Text style={styles.rowtextleft}>
             Password     >
           </Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtextleft}>Phone Number</Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtextleft}>Password</Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtextleft}>Host Location</Text>
           </TouchableHighlight>
 
           <Form
@@ -131,7 +119,7 @@ class Settings extends Component {
             type={this.state.type}
             //options={this.state.options}
             value={this.state.value}
-            style={styles.title}
+            // style={styles.title}
             //onChange={this.onChange}
           />
           </ScrollView>
@@ -151,7 +139,7 @@ const styles = StyleSheet.create({
     maxWidth: 100,
     maxHeight: 100,
     marginBottom: 20,
-    marginTop: 20,
+    marginTop: 60,
     alignSelf: 'center',
   },
   scroll: {
@@ -161,8 +149,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     alignSelf: 'center',
+    alignItems: 'center',
     marginBottom: 30,
     color: 'white',
+    marginLeft: 40,
   },
   row: {
     backgroundColor: 'white',
@@ -180,7 +170,6 @@ const styles = StyleSheet.create({
   rowtext: {
     fontSize: 14,
     color: '#363636',
-    marginLeft: -20,
   },
   rowtextleft: {
     fontSize: 14,
@@ -193,12 +182,14 @@ const styles = StyleSheet.create({
   titletext: {
     fontSize: 30,
     color: 'white',
-    marginBottom: 20,
+    marginBottom: 30,
+    alignSelf: 'center',
   },
   joinButton: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+    width: Dimensions.get('window').width,
   },
   joinButtonText: {
     fontSize: 16,
