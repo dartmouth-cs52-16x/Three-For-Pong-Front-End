@@ -146,8 +146,8 @@ class Settings extends Component {
           <Text style={styles.rowtextleft}>Edit Hosting Information > </Text>
           </TouchableHighlight>
 
-          <TouchableHighlight style={styles.logOutButton} underlayColor='#99d9f4'>
-          <Text style={styles.rowtextlogout}>Log Out</Text>
+          <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4'>
+          <Text style={styles.rowtextleft}>Log Out</Text>
           </TouchableHighlight>
 
         </View>
@@ -206,22 +206,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     padding: 15,
     marginLeft: -40,
-  },
-  rowtextlogout: {
-    fontSize: 14,
-    color: '#363636',
-    borderWidth: .5,
-    borderColor: '#1B676B',
-    width: Dimensions.get('window').width,
-    padding: 15,
-    marginLeft: -40,
-  },
-  logOutButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    width: Dimensions.get('window').width,
-    marginTop: 50,
   },
   titletext: {
     fontSize: 30,
