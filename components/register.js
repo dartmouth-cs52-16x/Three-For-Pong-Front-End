@@ -297,7 +297,7 @@ class Register extends Component {
    logo: {
      maxWidth: 100,
      maxHeight: 100,
-     marginBottom: 10,
+     marginBottom: 20,
      alignSelf: 'center',
    },
    title: {

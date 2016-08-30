@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   logo: {
     maxWidth: 300,
     maxHeight: 300,
-    marginTop: 315,
+    marginTop: 355,
   },
   welcome: {
     justifyContent: 'center',
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#519548',
     paddingTop: 25,
     paddingBottom: 25,
-    marginTop: 110,
+    marginTop: 70,
     width: 400,
   },
   Registerbutton: {
