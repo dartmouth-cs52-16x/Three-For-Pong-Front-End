@@ -14,6 +14,9 @@ import PinAuth from './pin_auth';
 import t from 'tcomb-form-native';
 import _ from 'lodash';
 import storage from 'react-native-simple-store';
+import changePassword from './change_password';
+import changePhone from './change_phone';
+import changeHost from './change_host';
 
 // var serverURL = require('./env');
 let token = storage.get('token');
@@ -39,6 +42,8 @@ class Settings extends Component {
       value: {},
       type: Person
     };
+
+    this._onChangeHostButton = this._onChangeHostButton.bind(this);
   }
 
   componentWillMount() {
@@ -66,7 +71,6 @@ class Settings extends Component {
 
 
     updateSettingsPage(dict) {
-      console.log(this.state.user_info);
       if (this.state.user_info.canHost) {
         var LocationList = t.enums(dict, 'LocationList');
         var foo = t.struct({
@@ -97,6 +101,29 @@ class Settings extends Component {
       this.setState({location_dict: dict});
     }
 
+    _onChangePasswordButton() {
+      this.props.navigator.push({
+        title: 'Change Password',
+        component: changePassword,
+        passProps: {user_id: this.state.user_id, user_info: this.state.user_info}
+      });
+    }
+
+    _onChangePhoneButton() {
+      this.props.navigator.push({
+        title: 'Change Phone Number',
+        component: changePhone,
+        passProps: {user_id: this.state.user_id, user_info: this.state.user_info}
+      });
+    }
+
+    _onChangeHostButton() {
+      this.props.navigator.push({
+        title: 'Change Hosting',
+        component: changeHost,
+        passProps: {user_id: this.state.user_id, user_info: this.state.user_info, location_dict: this.state.location_dict}
+      });
+    }
     render() {
       return (
 
@@ -107,33 +134,19 @@ class Settings extends Component {
           <Text style={styles.titletext}>Settings</Text>
           {/* display */}
           <ScrollView style={styles.scroll}>
-          <TouchableHighlight style={styles.joinButton}>
 
-          <Text style={styles.rowtext}>
-            Password     >
-          </Text>
+          <TouchableHighlight style={styles.joinButton}>
+          <Text style={styles.rowtextleft}>Change Phone Number > </Text>
           </TouchableHighlight>
 
           <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtextleft}>Phone Number</Text>
+          <Text style={styles.rowtextleft}>Change Password > </Text>
           </TouchableHighlight>
 
-          <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtextleft}>Password</Text>
+          <TouchableHighlight style={styles.joinButton} onPress={this._onChangeHostButton} >
+          <Text style={styles.rowtextleft}>Edit Hosting Information > </Text>
           </TouchableHighlight>
 
-          <TouchableHighlight style={styles.joinButton}>
-          <Text style={styles.rowtextleft}>Host Location</Text>
-          </TouchableHighlight>
-
-          <Form
-            ref="form"
-            type={this.state.type}
-            //options={this.state.options}
-            value={this.state.value}
-            style={styles.title}
-            //onChange={this.onChange}
-          />
           </ScrollView>
         </View>
       );
@@ -186,7 +199,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#363636',
     borderWidth: 1,
-    borderColor: '#cccccc',
+    borderColor: 'black',
     width: Dimensions.get('window').width,
     padding: 8,
   },
