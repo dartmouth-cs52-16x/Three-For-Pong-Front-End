@@ -90,15 +90,26 @@ class PinAuth extends Component {
        user_id = responseData.user_id;
        token = responseData.token;
        storage.save('token', token);
-       console.log(user_id);
+       console.log(`the second user ID is ${user_id}`);
        console.log(token);
 
+       if ((!user_id) || (!token)) {
+         AlertIOS.alert(
+           "Please input the correct authentication pin"
+         );
+         return;
+       }
        this.props.navigator.push({
         title: 'All Games',
         component: Dashboard,
-        passProps: {user_id:user_id}
+        passProps: {user_id:this.state.user_id}
       });
-      
+
+     })
+     .catch((error) =>{
+       AlertIOS.alert(
+         "Please input the correct authentication pin"
+       );
      })
      .done();
   }

@@ -246,7 +246,7 @@ class Register extends Component {
      .then((response) => response.json())
      .then((responseData) => {
         user_ID = responseData.user_id;
-        console.log(responseData);
+        console.log(`the first user ID is ${user_ID}`);
         this.pushPinAuth(user_ID);
 
      })
