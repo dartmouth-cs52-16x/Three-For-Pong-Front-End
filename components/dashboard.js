@@ -36,8 +36,8 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    this._fetchListings();
     this.buildUserInfo();
+    this._fetchListings();
   }
 
   buildUserInfo () {
@@ -104,83 +104,129 @@ _onSettingsButtonPress(){
   });
 }
   _renderRow(data, sectionID, rowID) {
-    if (this.state.in_game === 1) {
-    return (
-      <View style={styles.row}>
-        <Text style={styles.rowtext}>
-        Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
-        </Text>
-        <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4' onPress={() => {
-          var listing = data.listing_id;
-          fetch(`https://threeforpong.herokuapp.com/api/listings/join/${listing}`, {
-            method: 'POST',
-            headers: {
-              'Authorization': this.state.token,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              user_id: this.state.user_id
-            })
-          })
-          .then((response) => response.json())
-          .then((responseData) => {
-            console.log(responseData);
-            var new_num_needed = (this.state.db[rowID].num_still_needed_for_game -1);
-            var newDB = [...this.state.db];
-            newDB[rowID] = {...newDB[rowID], num_still_needed_for_game: new_num_needed};
-            console.log(newDB[rowID].num_still_needed_for_game);
-            const newsource = this.state.dataSource.cloneWithRows(newDB);
-            this.setState({
-              db: newDB,
-              dataSource: newsource,
-              in_game: 0
-            });
-          })
-          .done();
-        }}>
-          <Text style={styles.joinButtonText}>+</Text>
-        </TouchableHighlight>
-      </View>
-    )
-  } else {
-    return (
-      <View style={styles.row}>
-        <Text style={styles.rowtext}>
-        Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
-        </Text>
-        <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4' onPress={() => {
-          var listing = data.listing_id;
-          fetch(`https://threeforpong.herokuapp.com/api/listings/leave/${listing}`, {
-            method: 'POST',
-            headers: {
-              'Authorization': this.state.token,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              user_id: this.state.user_id
-            })
-          })
-          .then((response) => response.json())
-          .then((responseData) => {
-            console.log(responseData);
-            var new_num_needed = (this.state.db[rowID].num_still_needed_for_game +1);
-            var newDB = [...this.state.db];
-            newDB[rowID] = {...newDB[rowID], num_still_needed_for_game: new_num_needed};
-            console.log(newDB[rowID].num_still_needed_for_game);
-            const newsource = this.state.dataSource.cloneWithRows(newDB);
-            this.setState({
-              db: newDB,
-              dataSource: newsource,
-              in_game: 1
-            });
-          })
-          .done();
-        }}>
-          <Text style={styles.joinButtonText}>Leave</Text>
-        </TouchableHighlight>
-      </View>
-    )
-  }
+    if (this.state.user_id === data.host_user._id) {
+      return (
+        <View style={styles.row}>
+          <Text style={styles.rowtext}>
+          Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
+          </Text>
+          <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4' >
+            <Text style={styles.joinButtonText}>Host</Text>
+          </TouchableHighlight>
+        </View>
+      )
+    }
+    else {
+      if (this.state.in_game === 1) {
+          return (
+            <View style={styles.row}>
+              <Text style={styles.rowtext}>
+              Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
+              </Text>
+              <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4' onPress={() => {
+                var listing = data.listing_id;
+                var in_game = 0;
+                for (var i=0; i < data.users.length; i++) {
+                  if (this.state.user_id === data.users[i]._id) {
+                    in_game = 1;
+                  }
+                }
+                if (in_game === 1) {
+                  AlertIOS.alert(
+                    'You have already joined this game.',
+                    'Click the "Leave" button to leave the game.',
+                    [ {text: 'OK', onPress: () => {
+                      var newDB = [...this.state.db];
+                      newDB[rowID] = {...newDB[rowID]};
+                      const newsource = this.state.dataSource.cloneWithRows(newDB);
+                      this.setState({
+                        db: newDB,
+                        dataSource: newsource,
+                        in_game: 0
+                      });
+                  }, style: 'cancel'},
+                    ],
+                );
+                } else {
+                fetch(`https://threeforpong.herokuapp.com/api/listings/join/${listing}`, {
+                  method: 'POST',
+                  headers: {
+                    'Authorization': this.state.token,
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    user_id: this.state.user_id
+                  })
+                })
+                .then((response) => response.json())
+                .then((responseData) => {
+                  console.log(responseData);
+                  var new_num_needed = (this.state.db[rowID].num_still_needed_for_game -1);
+                  var newDB = [...this.state.db];
+                  newDB[rowID] = {...newDB[rowID], num_still_needed_for_game: new_num_needed};
+                  console.log(newDB[rowID].num_still_needed_for_game);
+                  const newsource = this.state.dataSource.cloneWithRows(newDB);
+                  this.setState({
+                    db: newDB,
+                    dataSource: newsource,
+                    in_game: 0
+                  });
+                })
+                .done();
+              }
+              }}>
+                <Text style={styles.joinButtonText}>Join</Text>
+              </TouchableHighlight>
+            </View>
+          )
+        } else {
+          return (
+            <View style={styles.row}>
+              <Text style={styles.rowtext}>
+              Need {data.num_still_needed_for_game} at {data.location.location_name} at {moment(data.start_time).format("h:mm a")}
+              </Text>
+              <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4' onPress={() => {
+                var listing = data.listing_id;
+                fetch(`https://threeforpong.herokuapp.com/api/listings/leave/${listing}`, {
+                  method: 'POST',
+                  headers: {
+                    'Authorization': this.state.token,
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    user_id: this.state.user_id
+                  })
+                })
+                .then((response) => response.json())
+                .then((responseData) => {
+                  console.log(responseData);
+                  var new_num_needed = (this.state.db[rowID].num_still_needed_for_game +1);
+                  var newDB = [...this.state.db];
+                  newDB[rowID] = {...newDB[rowID], num_still_needed_for_game: new_num_needed};
+                  console.log(newDB[rowID].num_still_needed_for_game);
+                  const newsource = this.state.dataSource.cloneWithRows(newDB);
+                  this.setState({
+                    db: newDB,
+                    dataSource: newsource,
+                    in_game: 1
+                  });
+                  AlertIOS.alert(
+                    'You have left this game.',
+                    'Click the "Join" button if you would like to rejoin.',
+                    [ {text: 'OK', onPress: () => {
+                      console.log("left game");
+                  }, style: 'cancel'},
+                    ],
+                );
+                })
+                .done();
+              }}>
+                <Text style={styles.joinButtonText}>Leave</Text>
+              </TouchableHighlight>
+            </View>
+          )
+        }
+      }
   }
   render() {
     return (
