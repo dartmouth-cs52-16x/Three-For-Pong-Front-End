@@ -52,6 +52,8 @@ The front end of Three for Pong was built using React Native. It is relatively s
 - **Create Game** – in this component, the user can choose how many players they need for their game. Also, using an iPhone date-scroll bar, the user can choose when they'd like their game to happen. To get a location, the app defaults to the default location the user provided when they registered. Once the game is created, it will show up on the dashboard in the aforementioned format.
 ![creategame](./images/readmecreategame.png)
 
+*NOTE: Unfortunately, we were not able to figure out a viable way to replace the IOS top navigation bar with 'back' buttons of our own. React Native was very fickle on the subject, and navigation through the stack on apps in general is tricky. While it's aesthetically not the best, and while it allows for the unfortunate quirk of being able to get back to the login screen from the dashboard, this was the best option available to us.*
+
 ### Back End
 
 Our back end design will use MongoDB hosted on Heroku.
