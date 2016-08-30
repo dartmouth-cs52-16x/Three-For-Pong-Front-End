@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
   },
   nontext: {
-    marginBottom: -15,
+    marginBottom: -20,
     color: 'gray',
     fontSize: 16,
     fontFamily: 'Courier',
