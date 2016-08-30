@@ -17,8 +17,6 @@ import _ from 'lodash';
 
 let Form = t.form.Form;
 
-// here we are: define your domain model
-
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 var Person = t.struct({
