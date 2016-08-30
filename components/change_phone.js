@@ -27,21 +27,7 @@ var Person = t.struct({
   phoneNumber: t.Number
 });
 
-var options = {
-  auto: 'placeholders',
-  fields: {
-    NewPassword: {
-      password: true,
-      secureTextEntry: true,
-      placeholderTextColor: 'white',
-      clearButtonMode: 'while-editing',
-      keyboardAppearance: 'dark',
-      selectionColor: '#88C425',
-      returnKeyType: 'go',
-      error: 'Please insert a valid password',
-    }
-  }
-}; // optional rendering options (see documentation)
+var options = {}; // optional rendering options (see documentation)
 
 
 var values = {};
@@ -67,7 +53,7 @@ class changePhone extends Component {
 
 
   onChange(value) {
-      this.setState({ value: value, buttonText:"UPDATE PASSWORD", options: options});
+      this.setState({ value: value, buttonText:"UPDATE PHONE", options: options});
   }
 
 
@@ -76,8 +62,8 @@ class changePhone extends Component {
     if (!value) {
       return null;
     }
-    var user_password = value.NewPassword;
-    console.log(user_password);
+    var user_number = value.phoneNumber;
+    console.log(user_number);
     var user_id = this.state.user_id;
       fetch(`https://threeforpong.herokuapp.com/api/users/${this.state.user_id}`, {
         method:'PUT',
@@ -86,11 +72,11 @@ class changePhone extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          password: `${value.NewPassword}`
+          phone: `${user_number}`
         })
       })
       .then((response) => {
-        console.log('Error 1');
+        console.log('Error 27');
         console.log(response);
       })
       .catch((error) =>{
