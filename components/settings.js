@@ -11,7 +11,6 @@ import {
   Dimensions,
 } from 'react-native';
 import PinAuth from './pin_auth';
-import t from 'tcomb-form-native';
 import _ from 'lodash';
 import storage from 'react-native-simple-store';
 import changePassword from './change_password';
@@ -21,26 +20,13 @@ import changeHost from './change_host';
 // var serverURL = require('./env');
 let token = storage.get('token');
 
-let Form = t.form.Form;
-
-const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
-
-// Potential items a user can edit
-var Person = t.struct({
-  // Boolean
-  phoneNumber: t.Number,  // a required number
-  canHost: t.Boolean
-});
-
 class Settings extends Component {
   constructor(props){
    super(props);
    this.state = {
       user_id: this.props.user_id,
       user_info: this.props.user_info,
-      location_dict: {},
-      value: {},
-      type: Person
+      location_dict: {}
     };
 
     this._onChangeHostButton = this._onChangeHostButton.bind(this);
@@ -51,6 +37,7 @@ class Settings extends Component {
   }
 
   buildLocations() {
+
     var temp_dict = {};
     fetch('https://threeforpong.herokuapp.com/api/locations/', {
       method: 'GET'
@@ -67,37 +54,7 @@ class Settings extends Component {
     })
 
   }
-
-
-
     updateSettingsPage(dict) {
-      if (this.state.user_info.canHost) {
-        var LocationList = t.enums(dict, 'LocationList');
-        var foo = t.struct({
-          phoneNumber: t.Number,
-          canHost: t.Boolean, // Boolean
-          LocationToHost: LocationList
-
-        });
-        console.log(this.state.user_info.canHost);
-        var temp_val = {
-          phoneNumber: this.state.user_info.phone,
-          canHost: this.state.user_info.canHost,
-          LocationToHost: this.state.user_info.default_location._id
-        };
-
-        this.setState({type: foo, value:temp_val});
-      }
-
-      else {
-        var temp_val = {
-          phoneNumber: this.state.user_info.phone,
-          canHost: this.state.user_info.canHost
-        };
-
-        this.setState({value: temp_val});
-
-      }
       this.setState({location_dict: dict});
     }
 
@@ -118,6 +75,7 @@ class Settings extends Component {
     }
 
     _onChangeHostButton() {
+
       this.props.navigator.push({
         title: 'Change Hosting',
         component: changeHost,

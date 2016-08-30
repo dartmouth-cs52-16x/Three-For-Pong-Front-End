@@ -21,22 +21,26 @@ import t from 'tcomb-form-native';
 
 var Form = t.form.Form;
 
-//let token = storage.get('token');
+let token = storage.get('token');
 
 var Person = t.struct({
   canHost: t.Boolean
 });
-
-let options = {
+var options = {
+  auto: 'placeholders',
   fields: {
     LocationToHost: {
       selectionColor: '#f7f7f7',
+      error:'Please choose a valid location',
       nullOption: {value: '', text: 'Choose your location'}
-    }
+    },
   }
-}
-let values = {};
 
+
+}; // optional rendering options (see documentation)
+
+
+var values = {};
 
 class changeHost extends Component {
 
@@ -47,12 +51,15 @@ class changeHost extends Component {
       user_info: this.props.user_info,
       location_dict: this.props.location_dict,
       value: values,
-      options: options,
+      options: {},
+      token:`${token._65}`,
+      buttonText:"RETURN TO SETTINGS",
       type: Person
     };
 
     this.loadHostForm = this.loadHostForm.bind(this);
     this.onChange = this.onChange.bind(this);
+    this._onPress = this._onPress.bind(this);
 
   }
 
@@ -61,7 +68,20 @@ class changeHost extends Component {
   }
 
   loadHostForm() {
-    if (this.state.user_info.canHost) {
+    console.log(this.state.user_info);
+    var options = {
+      auto: 'placeholders',
+      fields: {
+        LocationToHost: {
+          selectionColor: '#f7f7f7',
+          error:'Please choose a valid location',
+          nullOption: {value: '', text: 'Choose your location'}
+        },
+      }
+
+
+    };
+    if (this.state.user_info.can_host) {
       var LocationList = t.enums(this.props.location_dict, 'LocationList');
       var foo = t.struct({
         canHost: t.Boolean, // Boolean
@@ -69,12 +89,14 @@ class changeHost extends Component {
 
       });
       var temp_val = {
-        canHost: this.state.user_info.canHost,
+        canHost: this.state.user_info.can_host,
         LocationToHost: this.state.user_info.default_location._id
       };
 
-      this.setState({type: foo, value:temp_val});
+      this.setState({type: foo, value:temp_val, options: options});
+
     }
+
 
   }
 
@@ -98,12 +120,73 @@ class changeHost extends Component {
 
         this.setState({type: foo});
       }
-      this.setState({type: foo, value: value});
-
+      this.setState({type: foo, value: value, buttonText:"UPDATE HOSTING", options: options});
   }
 
 
+  _onPress() {
+    var value = this.refs.form.getValue();
+    if (!value) {
+      return null;
+    }
+    var user_canHost = value.canHost;
+    var user_LocationID = null;
 
+    if(user_canHost) {
+      user_LocationID = value.LocationToHost;
+      console.log(`the world is ${user_canHost}, ${user_LocationID}, ${this.state.user_id}`);
+      fetch(`https://threeforpong.herokuapp.com/api/users/${this.state.user_id}`, {
+        method:'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token._65}`
+        },
+        body: JSON.stringify({
+          can_host: user_canHost,
+          default_location_id: `${user_LocationID}`
+        })
+      })
+      .done();
+
+  } else {
+    fetch(`https://threeforpong.herokuapp.com/api/users/${this.state.user_id}`, {
+      method:'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token._65}`
+      },
+      body: JSON.stringify({
+        can_host: user_canHost
+      })
+    })
+    .then((response) => response.json())
+    .catch((error) =>{
+      console.log(error);
+    })
+    .done();
+  }
+
+  var user_info = {};
+  var user_id = this.state.user_id;
+  fetch(`https://threeforpong.herokuapp.com/api/users/${user_id}`, {
+    method:'GET',
+    headers: {
+      'Authorization': `${token._65}`
+    }
+  })
+  .then((response) => response.json())
+  .then((responseData) => {
+    user_info = responseData;
+    this.props.navigator.push({
+      title: 'Settings',
+      component: Settings,
+      passProps: {user_id: user_id, user_info: user_info}
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+}
 
   render() {
     return (
@@ -124,6 +207,9 @@ class changeHost extends Component {
         />
 
       </ScrollView>
+      <TouchableHighlight style={styles.button} onPress={this._onPress} underlayColor='#99d9f4'>
+        <Text style={styles.buttonText}>{this.state.buttonText}</Text>
+      </TouchableHighlight>
       </View>
     );
   }

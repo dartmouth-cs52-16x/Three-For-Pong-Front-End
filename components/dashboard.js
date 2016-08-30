@@ -59,7 +59,7 @@ class Dashboard extends Component {
       });
     })
     .catch((error) => {
-      console.log('woah');
+      console.log(error);
     })
 }
 

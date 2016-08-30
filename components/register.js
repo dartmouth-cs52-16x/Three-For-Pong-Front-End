@@ -104,6 +104,7 @@ let options = {
     },
     LocationToHost: {
       selectionColor: '#f7f7f7',
+      error:'Please select a valid location',
       nullOption: {value: '', text: 'Choose your location'}
     }
   }

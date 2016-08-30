@@ -115,6 +115,7 @@ authUser(user_id) {
     .then((responseData) => {
       user_id = responseData.user_id;
       token = responseData.token;
+      console.log(`new token is ${token}`);
       storage.save('token', token);
       this.authUser(user_id);
     })
