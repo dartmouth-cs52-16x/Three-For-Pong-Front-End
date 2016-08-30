@@ -10,14 +10,6 @@
 
 ![](./images/wireframes.png)
 
-##Mock-Ups
-
-![](./images/34pong-1.png)
-![](./images/34pong-2.png)
-![](./images/34pong-4.png)
-![](./images/34pong-3.png)
-
-
 ## Architecture
 
 ### Front End
