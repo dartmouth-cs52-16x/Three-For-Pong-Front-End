@@ -226,7 +226,36 @@ class Register extends Component {
 
     if(user_canHost) {
       user_LocationID = value.LocationToHost;
+      console.log(`${user_full_name}, ${user_phone}, ${user_email}, ${user_password}, ${user_canHost}, ${user_LocationID}`);
+      fetch('https://threeforpong.herokuapp.com/api/signup/', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+           email: `${user_email}`,
+           full_name: `${user_full_name}`,
+           phone: `${user_phone}`,
+           can_host: user_canHost,
+           password: `${user_password}`,
+           default_location_id: `${user_LocationID}`
+         })
+       })
+       .then((response) => response.json())
+       .then((responseData) => {
+          user_ID = responseData.user_id;
+          console.log(`the first user ID is ${user_ID}`);
+          this.pushPinAuth(user_ID);
+
+       })
+       .catch((error) =>{
+         console.log('woahh');
+         console.log(error);
+       })
+       .done();
     }
+
+    else {
 
     console.log(`${user_full_name}, ${user_phone}, ${user_email}, ${user_password}, ${user_canHost}, ${user_LocationID}`);
     fetch('https://threeforpong.herokuapp.com/api/signup/', {
@@ -254,6 +283,7 @@ class Register extends Component {
        console.log(error);
      })
      .done();
+   }
 
    }
 

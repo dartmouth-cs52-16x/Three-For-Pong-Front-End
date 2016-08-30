@@ -74,8 +74,7 @@ class Login extends Component {
 
 authUser(token, user_id) {
   storage.save('token', `${token}`);
-  var token = storage.get('token');
-  console.log(`the token is now ${token._65}`);
+  console.log(`the token is now ${token}`);
   console.log(user_id);
   if (user_id == null) {
     console.log('lost');
@@ -122,7 +121,6 @@ authUser(token, user_id) {
       this.authUser(token, user_id);
     })
     .catch((error) =>{
-      this.authUser(user_id);
     })
 
 

@@ -23,7 +23,7 @@ class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      token: token._65,
+      token: this.props.token,
       user_id: this.props.user_id,
       user_info: {},
       db: [],
@@ -44,6 +44,7 @@ class Dashboard extends Component {
   buildUserInfo () {
     var user_info = {};
     var user_id = this.state.user_id;
+    var to
     console.log(`token is ${this.state.token}`);
     console.log(`user id: ${user_id}`);
     fetch(`https://threeforpong.herokuapp.com/api/users/${user_id}`, {
@@ -68,7 +69,7 @@ class Dashboard extends Component {
     fetch('https://threeforpong.herokuapp.com/api/listings/', {
       method: 'GET',
       headers: {
-        'Authorization': this.state.token
+        'Authorization': `${this.state.token}`
       }
     })
     .then((response) => response.json())

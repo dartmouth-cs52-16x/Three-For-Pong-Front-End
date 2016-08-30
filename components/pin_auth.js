@@ -66,6 +66,26 @@ class PinAuth extends Component {
     };
 
     this._onPress = this._onPress.bind(this);
+    this.authUser = this.authUser.bind(this);
+    }
+
+    authUser(token, user_id) {
+      storage.save('token', `${token}`);
+      var token = storage.get('token');
+      console.log(`the token is now ${token}`);
+      console.log(user_id);
+      if (user_id == null) {
+        console.log('lost');
+        return null;
+      }
+      this.setState({
+        user_id:user_id
+      });
+      // this._onForward();
+      this.props.navigator.push({
+        title: 'Login',
+        component: Login
+      });
     }
 
   _onPress() {
@@ -90,7 +110,7 @@ class PinAuth extends Component {
        user_id = responseData.user_id;
        token = responseData.token;
        storage.save('token', token);
-       console.log(`the second user ID is ${user_id}`);
+       console.log(`the registration token is ${token}`);
        console.log(token);
 
        if ((!user_id) || (!token)) {
@@ -99,11 +119,8 @@ class PinAuth extends Component {
          );
          return;
        }
-       this.props.navigator.push({
-        title: 'All Games',
-        component: Dashboard,
-        passProps: {user_id:this.state.user_id}
-      });
+
+      this.authUser(token, user_id);
 
      })
      .catch((error) =>{
