@@ -146,7 +146,12 @@ class changeHost extends Component {
           default_location_id: `${user_LocationID}`
         })
       })
-      .done();
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) =>{
+        console.log(error);
+      })
 
   } else {
     fetch(`https://threeforpong.herokuapp.com/api/users/${this.state.user_id}`, {
@@ -159,11 +164,12 @@ class changeHost extends Component {
         can_host: user_canHost
       })
     })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+    })
     .catch((error) =>{
       console.log(error);
     })
-    .done();
   }
 
   var user_info = {};

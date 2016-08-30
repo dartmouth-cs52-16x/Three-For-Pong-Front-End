@@ -30,6 +30,8 @@ class Settings extends Component {
     };
 
     this._onChangeHostButton = this._onChangeHostButton.bind(this);
+    this._onChangePasswordButton = this._onChangePasswordButton.bind(this);
+    this._onChangePhoneButton = this._onChangePhoneButton.bind(this);
   }
 
   componentWillMount() {
