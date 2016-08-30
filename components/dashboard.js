@@ -10,6 +10,7 @@ import {
   TouchableHighlight,
   AlertIOS,
   Alert,
+  RefreshControl,
   ListView,
 } from 'react-native';
 import moment from 'moment';
@@ -28,11 +29,13 @@ class Dashboard extends Component {
       user_info: {},
       db: [],
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
-      in_game: 1
+      in_game: 1,
+      refreshing: false
     };
     this._onCreateButtonPress = this._onCreateButtonPress.bind(this);
     this._renderRow=this._renderRow.bind(this);
     this._onSettingsButtonPress = this._onSettingsButtonPress.bind(this);
+    this._onRefresh = this._onRefresh.bind(this);
   }
 
   componentWillMount() {
@@ -66,6 +69,7 @@ class Dashboard extends Component {
 }
 
   _fetchListings() {
+    console.log("fetchin");
     fetch('https://threeforpong.herokuapp.com/api/listings/', {
       method: 'GET',
       headers: {
@@ -74,7 +78,6 @@ class Dashboard extends Component {
     })
     .then((response) => response.json())
     .then((responseData) => {
-      // var data = [];
       for(var i = 0; i < responseData.length; i++) {
         this.state.db.push(responseData[i]);
       }
@@ -83,6 +86,27 @@ class Dashboard extends Component {
       })
     })
   }
+  _onRefresh() {
+      this.setState({refreshing: true});
+      fetch('https://threeforpong.herokuapp.com/api/listings/', {
+        method: 'GET',
+        headers: {
+          'Authorization': this.state.token
+        }
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        var data = [];
+        for(var i = 0; i < responseData.length; i++) {
+          data.push(responseData[i]);
+        }
+        this.setState({
+          db: data,
+          dataSource: this.state.dataSource.cloneWithRows(data),
+          refreshing: false
+        });
+      });
+    }
 
   _onCreateButtonPress(){
     if (!this.state.user_info.can_host){
@@ -106,6 +130,7 @@ _onSettingsButtonPress(){
   });
 }
   _renderRow(data, sectionID, rowID) {
+    console.log(data.users);
     if (this.state.user_id === data.host_user._id) {
       return (
         <View style={styles.row}>
@@ -247,6 +272,12 @@ _onSettingsButtonPress(){
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this._renderRow}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
+          />
+        }
       />
 
       <TouchableHighlight onPress={this._onCreateButtonPress} style={styles.button} underlayColor='#99d9f4'>
