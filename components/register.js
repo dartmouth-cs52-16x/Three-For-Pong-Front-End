@@ -24,7 +24,6 @@ var Person = t.struct({
   phoneNumber: t.Number,
   email: t.String,  // an optional string
   password: t.String,               // a required number
-  confirmPassword: t.String,        // check if password is correct
   canHost: t.Boolean // Boolean
 
 });
@@ -89,17 +88,6 @@ let options = {
       stylesheet: stylesheet,
       error:'Please input a valid password'
     },
-    confirmPassword: {
-      password: true,
-      secureTextEntry: true,
-      placeholderTextColor: 'white',
-      clearButtonMode: 'while-editing',
-      keyboardAppearance: 'dark',
-      selectionColor: '#88C425',
-      returnKeyType: 'go',
-      stylesheet: stylesheet,
-      error:'Please confirm your password'
-    },
     LocationToHost: {
       selectionColor: '#f7f7f7',
       error:'Please select a valid location',
@@ -145,7 +133,6 @@ class Register extends Component {
        phoneNumber: t.Number,
        email: t.String,  // an optional string
        password: t.String,               // a required number
-       confirmPassword: t.String,        // check if password is correct
        canHost: t.Boolean, // Boolean
        LocationToHost: LocationList
 
@@ -158,7 +145,6 @@ class Register extends Component {
         phoneNumber: t.Number,
         email: t.String,  // an optional string
         password: t.String,               // a required number
-        confirmPassword: t.String,        // check if password is correct
         canHost: t.Boolean // Boolean
       });
 
@@ -195,7 +181,6 @@ class Register extends Component {
       phoneNumber: t.Number,
       email: t.String,  // an optional string
       password: t.String,               // a required number
-      confirmPassword: t.String,        // check if password is correct
       canHost: t.Boolean // Boolean
 
     });

@@ -94,7 +94,7 @@ class Dashboard extends Component {
     this.props.navigator.push({
       title: 'Create Game',
       component: CreateGame,
-      passProps: {user_id: this.state.user_id, user_info: this.state.user_info}
+      passProps: {user_id: this.state.user_id, user_info: this.state.user_info, token: this.state.token},
     });
   }
 

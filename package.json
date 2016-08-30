@@ -11,7 +11,8 @@
     "react-native": "^0.31.0",
     "react-native-icons": "^0.7.1",
     "react-native-nav": "^1.1.4",
-    "react-native-navbar": "^1.5.0"
+    "react-native-navbar": "^1.5.0",
+    "react-native-simple-store": "^1.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",

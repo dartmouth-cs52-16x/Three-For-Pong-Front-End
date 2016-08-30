@@ -76,7 +76,8 @@ class CreateGame extends Component {
 
    this.state = {
      user_info: this.props.user_info,
-     user_id: this.props.user_id
+     user_id: this.props.user_id,
+     token: this.props.token,
    };
 
    this._onPress = this._onPress.bind(this);
@@ -97,7 +98,7 @@ class CreateGame extends Component {
      fetch('https://threeforpong.herokuapp.com/api/listings/', {
        method: 'POST',
        headers: {
-         'Authorization': `${token._65}`,
+         'Authorization': `${this.state.token}`,
          'Content-Type': 'application/json'
        },
        body: JSON.stringify({
@@ -116,7 +117,7 @@ class CreateGame extends Component {
      this.props.navigator.push({
        title: 'Games',
        component: Dashboard,
-       passProps: { user_id : this.state.user_id }
+       passProps: { user_id : this.state.user_id, token: this.state.token }
      });
    }
 
