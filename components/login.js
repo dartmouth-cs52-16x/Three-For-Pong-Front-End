@@ -72,7 +72,10 @@ class Login extends Component {
    this.authUser = this.authUser.bind(this);
  }
 
-authUser(user_id) {
+authUser(token, user_id) {
+  storage.save('token', `${token}`);
+  var token = storage.get('token');
+  console.log(`the token is now ${token._65}`);
   console.log(user_id);
   if (user_id == null) {
     console.log('lost');
@@ -86,7 +89,7 @@ authUser(user_id) {
   this.props.navigator.push({
     title: 'Games',
     component: Dashboard,
-    passProps: { user_id: user_id}
+    passProps: { user_id: user_id, token: token}
   });
 }
 
@@ -116,8 +119,7 @@ authUser(user_id) {
       user_id = responseData.user_id;
       token = responseData.token;
       console.log(`new token is ${token}`);
-      storage.save('token', token);
-      this.authUser(user_id);
+      this.authUser(token, user_id);
     })
     .catch((error) =>{
       this.authUser(user_id);

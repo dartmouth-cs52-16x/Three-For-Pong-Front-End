@@ -17,13 +17,13 @@ import CreateGame from './create_game';
 import Settings from './settings';
 import storage from 'react-native-simple-store';
 
-let token = storage.get('token');
+var token = storage.get('token');
 
 class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      token: `${token._65}`,
+      token: token._65,
       user_id: this.props.user_id,
       user_info: {},
       db: [],
@@ -36,6 +36,7 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
+
     this.buildUserInfo();
     this._fetchListings();
   }
@@ -43,12 +44,12 @@ class Dashboard extends Component {
   buildUserInfo () {
     var user_info = {};
     var user_id = this.state.user_id;
-    console.log(`token is ${token._65}`);
+    console.log(`token is ${this.state.token}`);
     console.log(`user id: ${user_id}`);
     fetch(`https://threeforpong.herokuapp.com/api/users/${user_id}`, {
       method:'GET',
       headers: {
-        'Authorization': `${token._65}`
+        'Authorization': `${this.state.token}`
       }
     })
     .then((response) => response.json())

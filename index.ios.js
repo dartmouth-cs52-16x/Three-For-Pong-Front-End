@@ -156,5 +156,5 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
 });
-
+export default Startup;
 AppRegistry.registerComponent('ThreeForPong', () => ThreeForPong);

@@ -21,7 +21,7 @@ import t from 'tcomb-form-native';
 
 var Form = t.form.Form;
 
-let token = storage.get('token');
+var token = storage.get('token');
 
 var Person = t.struct({
   phoneNumber: t.Number

@@ -13,7 +13,7 @@ const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 var Form = t.form.Form;
 
-let token = storage.get('token');
+var token = storage.get('token');
 
 let date = new Date();
 let min_date = date;

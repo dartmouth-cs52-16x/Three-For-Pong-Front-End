@@ -16,9 +16,10 @@ import storage from 'react-native-simple-store';
 import changePassword from './change_password';
 import changePhone from './change_phone';
 import changeHost from './change_host';
+import Startup from './../index.ios';
 
 // var serverURL = require('./env');
-let token = storage.get('token');
+var token = storage.get('token');
 
 class Settings extends Component {
   constructor(props){
@@ -32,6 +33,7 @@ class Settings extends Component {
     this._onChangeHostButton = this._onChangeHostButton.bind(this);
     this._onChangePasswordButton = this._onChangePasswordButton.bind(this);
     this._onChangePhoneButton = this._onChangePhoneButton.bind(this);
+    this._onLogout = this._onLogout.bind(this);
   }
 
   componentWillMount() {
@@ -77,13 +79,21 @@ class Settings extends Component {
     }
 
     _onChangeHostButton() {
-
       this.props.navigator.push({
         title: 'Change Hosting',
         component: changeHost,
         passProps: {user_id: this.state.user_id, user_info: this.state.user_info, location_dict: this.state.location_dict}
       });
     }
+
+    _onLogout() {
+      storage.save('token', null);
+      this.props.navigator.push({
+        title: '',
+        component: Startup
+      });
+    }
+
     render() {
       return (
 
@@ -106,7 +116,7 @@ class Settings extends Component {
           <Text style={styles.rowtextleft}>Edit Hosting Information > </Text>
           </TouchableHighlight>
 
-          <TouchableHighlight style={styles.joinButton} underlayColor='#99d9f4'>
+          <TouchableHighlight style={styles.joinButton} onPress={this._onLogout} underlayColor='#99d9f4'>
           <Text style={styles.rowtextleft}>Log Out</Text>
           </TouchableHighlight>
 
