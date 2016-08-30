@@ -159,19 +159,26 @@ _onSettingsButtonPress(){
                   }
                 }
                 if (in_game === 1) {
+                  console.log(this.state.db[rowID]);
                   AlertIOS.alert(
                     'You have already joined this game.',
                     'Click the "Leave" button to leave the game.',
                     [ {text: 'OK', onPress: () => {
+                      var newUsers = [];
+                      for (var i=0; i < data.users.length; i++) {
+                        if (this.state.user_id != data.users[i]._id) {
+                          newUsers.push(data.users[i]);
+                        }
+                      }
                       var newDB = [...this.state.db];
-                      newDB[rowID] = {...newDB[rowID]};
+                      newDB[rowID] = {...newDB[rowID], users: newUsers};
                       const newsource = this.state.dataSource.cloneWithRows(newDB);
                       this.setState({
                         db: newDB,
                         dataSource: newsource,
                         in_game: 0
                       });
-                  }, style: 'cancel'},
+                   }, style: 'cancel'},
                     ],
                 );
                 } else {
