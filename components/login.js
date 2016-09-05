@@ -113,14 +113,23 @@ authUser(token, user_id) {
         password: `${user_password}`
       })
     })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.log(response);
+      }
+    }
+    )
     .then((responseData) => {
+      console.log(responseData);
       user_id = responseData.user_id;
       token = responseData.token;
       console.log(`new token is ${token}`);
       this.authUser(token, user_id);
     })
     .catch((error) =>{
+      console.log(error);
     })
 
 
