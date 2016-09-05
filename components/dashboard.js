@@ -103,6 +103,7 @@ class Dashboard extends Component {
         this.setState({
           db: data,
           dataSource: this.state.dataSource.cloneWithRows(data),
+          in_game: 1,
           refreshing: false
         });
       });
