@@ -30,7 +30,8 @@ class Dashboard extends Component {
       db: [],
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
       in_game: 1,
-      refreshing: false
+      refreshing: false,
+      games: false,
     };
     this._onCreateButtonPress = this._onCreateButtonPress.bind(this);
     this._renderRow=this._renderRow.bind(this);
@@ -78,6 +79,12 @@ class Dashboard extends Component {
     })
     .then((response) => response.json())
     .then((responseData) => {
+      if(responseData.length==0){
+        this.setState({games: false});
+      }
+      else{
+        this.setState({games: true});
+      }
       for(var i = 0; i < responseData.length; i++) {
         this.state.db.push(responseData[i]);
       }

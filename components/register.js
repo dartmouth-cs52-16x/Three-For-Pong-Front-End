@@ -127,6 +127,7 @@ class Register extends Component {
    if (value.canHost) {
      var location_dict = this.state.dict;
      var LocationList = t.enums(location_dict, 'LocationList');
+     this.refs.scrollView.scrollTo(100);
 
      var temp = t.struct({
        fullName: t.String,
@@ -135,7 +136,6 @@ class Register extends Component {
        password: t.String,               // a required number
        canHost: t.Boolean, // Boolean
        LocationToHost: LocationList
-
      });
 
      this.setState({type: temp, value: value});
@@ -167,8 +167,6 @@ class Register extends Component {
       }
 
       this.getType(dict);
-
-
     })
 
   }
@@ -275,7 +273,7 @@ class Register extends Component {
    render() {
      return (
        <View style={styles.container}>
-        <ScrollView style={styles.scroll}>
+        <ScrollView style={styles.scroll} ref="scrollView">
 
          <Image source={require('../3forponglogo.png')} style={styles.logo} />
          {/* display */}
