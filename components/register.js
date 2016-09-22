@@ -189,7 +189,7 @@ class Register extends Component {
   }
 
   pushPinAuth(user_id) {
-    this.props.navigator.push({
+    this.props.navigator.replace({
      component: PinAuth,
      title: 'Pin Entry',
      passProps: {user_id: user_id}

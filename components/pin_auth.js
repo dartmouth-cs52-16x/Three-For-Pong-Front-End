@@ -82,7 +82,7 @@ class PinAuth extends Component {
         user_id:user_id
       });
       // this._onForward();
-      this.props.navigator.push({
+      this.props.navigator.resetTo({
         title: 'Login',
         component: Login
       });

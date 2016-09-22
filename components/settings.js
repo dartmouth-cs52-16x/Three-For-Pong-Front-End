@@ -88,7 +88,7 @@ class Settings extends Component {
 
     _onLogout() {
       storage.save('token', null);
-      this.props.navigator.push({
+      this.props.navigator.resetTo({
         title: '',
         component: Startup
       });

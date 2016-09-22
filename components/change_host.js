@@ -183,11 +183,7 @@ class changeHost extends Component {
   .then((response) => response.json())
   .then((responseData) => {
     user_info = responseData;
-    this.props.navigator.push({
-      title: 'Settings',
-      component: Settings,
-      passProps: {user_id: user_id, user_info: user_info}
-    });
+    this.props.navigator.pop();
   })
   .catch((error) => {
     console.log(error);

@@ -114,11 +114,7 @@ class CreateGame extends Component {
      })
      .done();
 
-     this.props.navigator.push({
-       title: 'Games',
-       component: Dashboard,
-       passProps: { user_id : this.state.user_id, token: this.state.token }
-     });
+     this.props.navigator.pop();
    }
 
 
