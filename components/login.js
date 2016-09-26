@@ -84,7 +84,7 @@ authUser(token, user_id) {
   this.setState({
     user_id:user_id
   });
-  // resets the navigator so the user can't go back to the login page without manually logging out
+  // this._onForward();
   this.props.navigator.resetTo({
     title: 'Games',
     component: Dashboard,
